@@ -3,6 +3,7 @@ package operator.com.operatorapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import operator.com.operatorapp.adapters.CabNumberItems;
+import operator.com.operatorapp.adapters.Record;
 
 /**
  * Created by parviz on 4/12/15.
@@ -29,14 +31,21 @@ public class DataController {
 
     private JSONObject requestJSon;
     private String requestStatus ;
+    private JSONObject cabsJSon;
 
-    public ArrayList<CabNumberItems> requestItems;
+
+    public ArrayList<String> cabsList;
+    public ArrayList<String> driverList;
+    public ArrayList<Record> itemsList;
 
 
     private  DataController(Context context){
 
         this.context = context;
         aq = new AQuery(context);
+        cabsList = new ArrayList<String>();
+        itemsList = new ArrayList<Record>();
+        driverList = new ArrayList<String>();
     }
 
     public static DataController getInstance(Context context){
@@ -50,7 +59,8 @@ public class DataController {
 
     public void monitoring(String cab_number , final CallBack success, final CallBack failure){
 
-        String url = String.format("http://serverdp.herokuapp.com/get_coordinates?cab_number=",cab_number);
+
+        String url = String.format("http://serverdp.herokuapp.com/get_coordinates?cab_number=%s",cab_number);
         requestServer(url,
                 new CallBack() {
                     @Override
@@ -63,13 +73,52 @@ public class DataController {
 
                                     requestJSon = new JSONObject( object.get(i).toString());
 
-                                    //requestStatus = cubNumberJSon.getString("status");
-
-                                    //Log.e("Jush", requestStatus);
+                                    itemsList.add( new Record(
+                                            requestJSon.getString("cab_number"),
+                                            requestJSon.getDouble("latitude"),
+                                            requestJSon.getDouble("longitude")
+                                            ));
                                 }
 
                             } catch (JSONException e) {
                                 Log.e("Jush", "Catched JSONException. result was: " + o);
+                            }
+                        }
+                        success.process(o);
+                    }
+                },
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        failure.process(null);
+                    }
+                }
+        );
+    }
+
+
+    public void getCabs(final CallBack success, final CallBack failure){
+
+        String url = "http://serverdp.herokuapp.com/all_cabs";
+        requestServer(url,
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        if(!o.equals("")) {
+                            try {
+
+                                JSONArray object = new JSONArray(o);
+                                cabsList.add(" "); // for first initialisation
+                                
+                                for(int i=0; i < object.length(); i++)
+                                {
+                                    cabsJSon = new JSONObject(object.get(i).toString());
+                                    cabsList.add(cabsJSon.getString("cab_number"));
+                                    driverList.add(cabsJSon.getString("full_name"));
+                                }
+
+                            } catch (JSONException e) {
+                                Log.e("Tracking", "Catched JSONException. result was: " + o);
                             }
                         }
                         success.process(o);
