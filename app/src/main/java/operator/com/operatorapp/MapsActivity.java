@@ -1,5 +1,9 @@
 package operator.com.operatorapp;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
@@ -40,10 +44,11 @@ public class MapsActivity extends ActionBarActivity {
     private ImageView backButton;
 
     public String choosedCab = null ;
-    public int selectionCount = 0;
 
     TextView cabNumberView;
     TextView fullNameView;
+
+    ProgressDialog dialog;
 
     ViewFlipper flipper;
 
@@ -62,6 +67,12 @@ public class MapsActivity extends ActionBarActivity {
         backButton = (ImageView) findViewById(R.id.back_button);
         backButton.setVisibility(View.GONE);
 
+        cabNumberView = (TextView)findViewById(R.id.cab_number);
+        fullNameView = (TextView) findViewById(R.id.driver_full_name);
+
+        cabNumberView.setText("");
+        fullNameView.setText("Choose date and cab number");
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +80,9 @@ public class MapsActivity extends ActionBarActivity {
                 backButton.setVisibility(View.GONE);
                 toRight();
                 inLeft = true;
+
+                cabNumberView.setText("");
+                fullNameView.setText("Choose date and cab number");
             }
         });
 
@@ -149,10 +163,12 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     public void getCabsList(){
+
+        dialog = ProgressDialog.show(this,"Wait","Loading cabs...",true);
         dc.getCabs( new CallBack() {
                         @Override
                         public void process(String o) {
-
+                            dialog.dismiss();
                             fillList();
                             //fillSpinner();
                         }
@@ -160,8 +176,19 @@ public class MapsActivity extends ActionBarActivity {
                 new CallBack() {
                     @Override
                     public void process(String o) {
-                        Toast toast3 = Toast.makeText(getApplicationContext(), "Error while loading cabs " , Toast.LENGTH_SHORT);
-                        toast3.show();
+
+                        AlertDialog.Builder mErrorDialog = new AlertDialog.Builder(MapsActivity.this);
+                        mErrorDialog.setTitle("Error")
+                                .setMessage("There are some problems with connection")
+                                .setNeutralButton("Retry", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = getIntent();
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+
                     }
                 });
 
@@ -171,28 +198,21 @@ public class MapsActivity extends ActionBarActivity {
 
     public void fillList(){
 
+
+
         final ListView listView = (ListView) findViewById(R.id.cab_list);
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
         listView.setAdapter(adapter);
-
-      /*  listView.setActivated(true);
-        listView.setFocusable(true);
-        listView.setFocusableInTouchMode(true);*/
-
-
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                dialog = ProgressDialog.show(MapsActivity.this,"Wait","Loadings coordinates",true);
+
                 dc.itemsList.clear();
                 choosedCab = parent.getItemAtPosition(position).toString();
-
-//                Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
-                 //toast11.show();
 
                 dc.monitoring(choosedCab,
                         new CallBack() {
@@ -201,9 +221,11 @@ public class MapsActivity extends ActionBarActivity {
 
                                  //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
                                 // toast11.show();
+                                dialog.dismiss();
                                 addCoords();
                                 addDriverInfo(choosedCab);
                                 toLeft();
+                                backButton.setVisibility(View.VISIBLE);
                             }
                         },
                         new CallBack() {
@@ -215,66 +237,11 @@ public class MapsActivity extends ActionBarActivity {
                         });
             }
 
-
         });
 
     }
 
 
-   /* public  void fillLis1t(){
-
-        listView = (ListView) findViewById(R.id.lisView);
-
-        Log.e("Tracking", "success");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_spinner_item , dc.cabsList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setSelected(false);
-
-
-       // dc = DataController.getInstance(this);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
-
-                dc.itemsList.clear();
-                choosedCab = parent.getItemAtPosition(position).toString();
-
-                if(position != 0)
-                {
-                    dc.monitoring(choosedCab,
-                            new CallBack() {
-                                @Override
-                                public void process(String o) {
-
-                                    // Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
-                                    // toast11.show();
-                                    addCoords();
-                                    addDriverInfo(choosedCab);
-                                }
-                            },
-                            new CallBack() {
-                                @Override
-                                public void process(String o) {
-                                    Toast toast3 = Toast.makeText(getApplicationContext(), "Error while loading coords ", Toast.LENGTH_SHORT);
-                                    toast3.show();
-                                }
-                            });
-                }
-                selectionCount ++;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        }) ;
-
-
-
-
-    }*/
 
     public void addCoords() {
 
@@ -305,8 +272,6 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     public void addDriverInfo(String cabNumber){
-        cabNumberView = (TextView)findViewById(R.id.cab_number);
-        fullNameView = (TextView) findViewById(R.id.driver_full_name);
 
         for(int i=0 ; i<dc.driverList.size(); i++ )
         {
