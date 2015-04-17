@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +30,7 @@ import java.util.ArrayList;
 import operator.com.operatorapp.adapters.Record;
 import operator.com.operatorapp.utils.CallBack;
 import operator.com.operatorapp.utils.DataController;
+import operator.com.operatorapp.utils.OnSwipeTouchListener;
 
 public class MapsActivity extends ActionBarActivity {
 
@@ -33,12 +38,18 @@ public class MapsActivity extends ActionBarActivity {
     DataController dc;
 
     private Spinner spinner;
+    private ListView listView;
+    private ImageView backButton;
 
     public String choosedCab = null ;
     public int selectionCount = 0;
 
     TextView cabNumberView;
     TextView fullNameView;
+
+    ViewFlipper flipper;
+
+    public boolean inLeft = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,21 @@ public class MapsActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.title_bar);
 
+        backButton = (ImageView) findViewById(R.id.back_button);
+        backButton.setVisibility(View.GONE);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                backButton.setVisibility(View.GONE);
+                toRight();
+                inLeft = true;
+            }
+        });
+
+
+
         try {
             setUpMap();
         }
@@ -58,6 +84,20 @@ public class MapsActivity extends ActionBarActivity {
         }
 
        getCabsList();
+
+
+        flipper = (ViewFlipper) findViewById(R.id.view_flipper);
+        flipper.setOnTouchListener(new OnSwipeTouchListener(MapsActivity.this) {
+            public void onSwipeLeft() {
+                   if(inLeft)
+                   {
+                       toLeft();
+                       backButton.setVisibility(View.VISIBLE);
+                       inLeft = false;
+                   }
+
+            }
+        });
     }
 
     @Override
@@ -66,6 +106,24 @@ public class MapsActivity extends ActionBarActivity {
         setUpMap();
     }
 
+
+    private void backButtonPressed(){
+        super.onBackPressed();
+    }
+
+    public void toLeft(){
+        flipper.setInAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_in_from_right));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_left));
+        flipper.showNext();
+        Log.e("TracksCloud", "Flip to oLeft");
+    }
+
+    public void toRight(){
+        flipper.setInAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_in_from_left));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_right));
+        flipper.showPrevious();
+        Log.e("TracksCloud", "Flip to Right");
+    }
 
 
     private void setUpMap(){
@@ -97,6 +155,7 @@ public class MapsActivity extends ActionBarActivity {
                         @Override
                         public void process(String o) {
 
+                            fillList();
                             fillSpinner();
                         }
                     },
@@ -112,9 +171,20 @@ public class MapsActivity extends ActionBarActivity {
        // dc.monitoring();
     }
 
+    public void fillList(){
+        listView = (ListView) findViewById(R.id.lisView);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
+        listView.setAdapter(adapter);
+
+
+    }
+
+
     public  void fillSpinner(){
 
         spinner = (Spinner)findViewById(R.id.cab_list);
+        listView = (ListView) findViewById(R.id.lisView);
 
         Log.e("Tracking", "success");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_spinner_item , dc.cabsList);
