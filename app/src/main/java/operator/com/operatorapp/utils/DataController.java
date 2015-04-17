@@ -108,7 +108,7 @@ public class DataController {
                             try {
 
                                 JSONArray object = new JSONArray(o);
-                                cabsList.add(" "); // for first initialisation
+                               // cabsList.add(" "); // for first initialisation
                                 
                                 for(int i=0; i < object.length(); i++)
                                 {

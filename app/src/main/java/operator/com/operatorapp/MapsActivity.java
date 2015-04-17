@@ -37,8 +37,6 @@ public class MapsActivity extends ActionBarActivity {
     private GoogleMap gMap; // Might be null if Google Play services APK is not available.
     DataController dc;
 
-    private Spinner spinner;
-    private ListView listView;
     private ImageView backButton;
 
     public String choosedCab = null ;
@@ -156,7 +154,7 @@ public class MapsActivity extends ActionBarActivity {
                         public void process(String o) {
 
                             fillList();
-                            fillSpinner();
+                            //fillSpinner();
                         }
                     },
                 new CallBack() {
@@ -172,18 +170,59 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     public void fillList(){
-        listView = (ListView) findViewById(R.id.lisView);
+
+        final ListView listView = (ListView) findViewById(R.id.cab_list);
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
         listView.setAdapter(adapter);
 
+      /*  listView.setActivated(true);
+        listView.setFocusable(true);
+        listView.setFocusableInTouchMode(true);*/
+
+
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                dc.itemsList.clear();
+                choosedCab = parent.getItemAtPosition(position).toString();
+
+//                Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
+                 //toast11.show();
+
+                dc.monitoring(choosedCab,
+                        new CallBack() {
+                            @Override
+                            public void process(String o) {
+
+                                 //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
+                                // toast11.show();
+                                addCoords();
+                                addDriverInfo(choosedCab);
+                                toLeft();
+                            }
+                        },
+                        new CallBack() {
+                            @Override
+                            public void process(String o) {
+                                Toast toast3 = Toast.makeText(getApplicationContext(), "Error while loading coords ", Toast.LENGTH_SHORT);
+                                toast3.show();
+                            }
+                        });
+            }
+
+
+        });
 
     }
 
 
-    public  void fillSpinner(){
+   /* public  void fillLis1t(){
 
-        spinner = (Spinner)findViewById(R.id.cab_list);
         listView = (ListView) findViewById(R.id.lisView);
 
         Log.e("Tracking", "success");
@@ -235,7 +274,7 @@ public class MapsActivity extends ActionBarActivity {
 
 
 
-    }
+    }*/
 
     public void addCoords() {
 
@@ -261,7 +300,7 @@ public class MapsActivity extends ActionBarActivity {
 
         gMap.addPolyline(polyLineOptions);
 
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(points.get(points.size()-1) , 14.5f));
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(points.get(points.size()-1) , 13.5f));
 
     }
 
