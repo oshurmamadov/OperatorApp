@@ -71,7 +71,7 @@ public class MapsActivity extends ActionBarActivity {
         fullNameView = (TextView) findViewById(R.id.driver_full_name);
 
         cabNumberView.setText("");
-        fullNameView.setText("Choose date and cab number");
+        fullNameView.setText("Выберите дату и борт");
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +164,7 @@ public class MapsActivity extends ActionBarActivity {
 
     public void getCabsList(){
 
-        dialog = ProgressDialog.show(this,"Wait","Loading cabs...",true);
+        dialog = ProgressDialog.show(this,"Подождите","Загружаются данные...",true);
         dc.getCabs( new CallBack() {
                         @Override
                         public void process(String o) {
@@ -178,9 +178,9 @@ public class MapsActivity extends ActionBarActivity {
                     public void process(String o) {
 
                         AlertDialog.Builder mErrorDialog = new AlertDialog.Builder(MapsActivity.this);
-                        mErrorDialog.setTitle("Error")
-                                .setMessage("There are some problems with connection")
-                                .setNeutralButton("Retry", new DialogInterface.OnClickListener() {
+                        mErrorDialog.setTitle("Ошибка")
+                                .setMessage("Не удалось получить данные")
+                                .setNeutralButton("Повтор", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = getIntent();
@@ -209,7 +209,7 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                dialog = ProgressDialog.show(MapsActivity.this,"Wait","Loadings coordinates",true);
+                dialog = ProgressDialog.show(MapsActivity.this,"Подождите","Загружаются координаты",true);
 
                 dc.itemsList.clear();
                 choosedCab = parent.getItemAtPosition(position).toString();
@@ -231,7 +231,7 @@ public class MapsActivity extends ActionBarActivity {
                         new CallBack() {
                             @Override
                             public void process(String o) {
-                                Toast toast3 = Toast.makeText(getApplicationContext(), "Error while loading coords ", Toast.LENGTH_SHORT);
+                                Toast toast3 = Toast.makeText(getApplicationContext(), "Не удалось получить координаты ", Toast.LENGTH_SHORT);
                                 toast3.show();
                             }
                         });
@@ -251,7 +251,7 @@ public class MapsActivity extends ActionBarActivity {
         gMap.clear();
 
         if(dc.itemsList.size() == 0) {
-            Toast toast11 = Toast.makeText(getApplicationContext(), " Nothing to show ", Toast.LENGTH_SHORT);
+            Toast toast11 = Toast.makeText(getApplicationContext(), " Данных нет ", Toast.LENGTH_SHORT);
             toast11.show();
         }
 
