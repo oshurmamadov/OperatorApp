@@ -36,6 +36,7 @@ public class DataController {
 
     public ArrayList<String> cabsList;
     public ArrayList<String> driverList;
+    public ArrayList<String> datelist;
     public ArrayList<Record> itemsList;
 
 
@@ -46,6 +47,7 @@ public class DataController {
         cabsList = new ArrayList<String>();
         itemsList = new ArrayList<Record>();
         driverList = new ArrayList<String>();
+        datelist = new ArrayList<String>();
     }
 
     public static DataController getInstance(Context context){
@@ -57,7 +59,7 @@ public class DataController {
     }
 
 
-    public void monitoring(String cab_number , final CallBack success, final CallBack failure){
+    public void monitoring(String cab_number , final String choosedDate, final CallBack success, final CallBack failure){
 
 
         String url = String.format("http://serverdp.herokuapp.com/get_coordinates?cab_number=%s",cab_number);
@@ -73,11 +75,19 @@ public class DataController {
 
                                     requestJSon = new JSONObject( object.get(i).toString());
 
-                                    itemsList.add( new Record(
-                                            requestJSon.getString("cab_number"),
-                                            requestJSon.getDouble("latitude"),
-                                            requestJSon.getDouble("longitude")
-                                            ));
+
+
+                                    String date = requestJSon.getString("created_at").split("T")[0];
+
+                                    if( choosedDate.equals(date))
+                                    {
+                                        //datelist.add(date);
+                                        itemsList.add( new Record(
+                                                requestJSon.getString("cab_number"),
+                                                requestJSon.getDouble("latitude"),
+                                                requestJSon.getDouble("longitude")
+                                        ));
+                                    }
                                 }
 
                             } catch (JSONException e) {

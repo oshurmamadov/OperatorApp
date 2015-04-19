@@ -1,11 +1,15 @@
 package operator.com.operatorapp;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +18,9 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -30,10 +37,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import operator.com.operatorapp.adapters.Record;
 import operator.com.operatorapp.utils.CallBack;
 import operator.com.operatorapp.utils.DataController;
+import operator.com.operatorapp.utils.DataPickerFragment;
 import operator.com.operatorapp.utils.OnSwipeTouchListener;
 
 public class MapsActivity extends ActionBarActivity {
@@ -48,9 +59,21 @@ public class MapsActivity extends ActionBarActivity {
     TextView cabNumberView;
     TextView fullNameView;
 
+    CheckBox checkbox;
+
     ProgressDialog dialog;
 
     ViewFlipper flipper;
+
+    TextView data ;
+    int DIALOG_DATE = 1;
+    int _year ;
+    int _month ;
+    int _day ;
+
+    String choosed_date;
+
+    boolean online = false;
 
     public boolean inLeft = true;
 
@@ -110,7 +133,84 @@ public class MapsActivity extends ActionBarActivity {
 
             }
         });
+
+        data = (TextView) findViewById(R.id.date_view);
+        data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_DATE);
+            }
+        });
+
+
+        checkbox = (CheckBox)findViewById(R.id.online_checkbox);
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    if(month < 10)
+                    {
+                        month += 1;
+                        choosed_date = year + "-0" + month + "-" + day;
+                    }
+                    else
+                    {
+                        month += 1;
+                        choosed_date = year + "-" + month + "-" + day;
+                    }
+                    online = true;
+                    data.setEnabled(false);
+                }
+                else{
+                    data.setEnabled(true);
+                }
+            }
+        });
+
+
     }
+
+    protected Dialog onCreateDialog(int id) {
+
+        Calendar calendar = Calendar.getInstance();
+        _year = calendar.get(Calendar.YEAR);
+        _month = calendar.get(Calendar.MONTH);
+        _day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        if (id == DIALOG_DATE) {
+            DatePickerDialog tpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    _year = year;
+                    _month = monthOfYear;
+                    _day = dayOfMonth;
+
+                    if(_month < 10)
+                    {
+                        _month += 1;
+                        choosed_date = _year + "-0" + _month + "-" + _day;
+                        data.setText( "Дата : " + choosed_date );
+                    }
+                    else
+                    {
+                        _month += 1;
+                        choosed_date = _year + "-" + _month + "-" + _day;
+                        data.setText( "Дата : " + choosed_date );
+                    }
+
+
+                }
+            }, _year, _month  , _day);
+            return tpd;
+        }
+        return super.onCreateDialog(id);
+    }
+
 
     @Override
     protected void onResume() {
@@ -198,11 +298,11 @@ public class MapsActivity extends ActionBarActivity {
 
     public void fillList(){
 
-
-
         final ListView listView = (ListView) findViewById(R.id.cab_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
         listView.setAdapter(adapter);
+
+
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -214,27 +314,8 @@ public class MapsActivity extends ActionBarActivity {
                 dc.itemsList.clear();
                 choosedCab = parent.getItemAtPosition(position).toString();
 
-                dc.monitoring(choosedCab,
-                        new CallBack() {
-                            @Override
-                            public void process(String o) {
-
-                                 //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
-                                // toast11.show();
-                                dialog.dismiss();
-                                addCoords();
-                                addDriverInfo(choosedCab);
-                                toLeft();
-                                backButton.setVisibility(View.VISIBLE);
-                            }
-                        },
-                        new CallBack() {
-                            @Override
-                            public void process(String o) {
-                                Toast toast3 = Toast.makeText(getApplicationContext(), "Не удалось получить координаты ", Toast.LENGTH_SHORT);
-                                toast3.show();
-                            }
-                        });
+                getCoordsFromServer();
+                if(online)updateMapInfo();
             }
 
         });
@@ -242,6 +323,31 @@ public class MapsActivity extends ActionBarActivity {
     }
 
 
+    public void getCoordsFromServer(){
+
+        dc.monitoring(choosedCab,choosed_date,
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+
+                        //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
+                        // toast11.show();
+                        dialog.dismiss();
+                        addCoords();
+                        addDriverInfo(choosedCab);
+                        if(online)toLeft();
+                        backButton.setVisibility(View.VISIBLE);
+                    }
+                },
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        Toast toast3 = Toast.makeText(getApplicationContext(), "Не удалось получить координаты ", Toast.LENGTH_SHORT);
+                        toast3.show();
+                    }
+                });
+
+    }
 
     public void addCoords() {
 
@@ -281,6 +387,40 @@ public class MapsActivity extends ActionBarActivity {
                 fullNameView.setText(dc.driverList.get(i));
             }
         }
+
+    }
+
+    public  void updateMapInfo()
+    {
+
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+
+                    public void run() {
+                        try {
+                              online = false;
+
+                              dc.itemsList.clear();
+                              getCoordsFromServer();
+
+                              Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
+                              toastUpdate.show();
+                        }
+                        catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 25000, 60000);
+
 
     }
 
