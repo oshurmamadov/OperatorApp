@@ -38,6 +38,17 @@
         android:paddingBottom="1.8dp"
         android:layout_marginLeft="10dp" />
 
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/info"
+        android:background="@drawable/info"
+        android:layout_alignTop="@+id/back_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
 
 
 </RelativeLayout>

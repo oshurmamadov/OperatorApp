@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -53,6 +54,7 @@ public class MapsActivity extends ActionBarActivity {
     DataController dc;
 
     private ImageView backButton;
+    private ImageButton infoButton;
 
     public String choosedCab = null ;
 
@@ -71,11 +73,15 @@ public class MapsActivity extends ActionBarActivity {
     int _month ;
     int _day ;
 
-    String choosed_date;
+    String choosed_date = " ";
 
-    boolean online = false;
+    boolean online = false , justForOnlineState = false , ItemsCountIsNull = false;
 
     public boolean inLeft = true;
+
+    Handler handler = new Handler();
+    TimerTask doAsynchronousTask ;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,8 @@ public class MapsActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.title_bar);
+
+        infoButton = (ImageButton) findViewById(R.id.info);
 
         backButton = (ImageView) findViewById(R.id.back_button);
         backButton.setVisibility(View.GONE);
@@ -106,6 +114,14 @@ public class MapsActivity extends ActionBarActivity {
 
                 cabNumberView.setText("");
                 fullNameView.setText("Choose date and cab number");
+
+                online = false;
+
+                handler.removeCallbacks(mapUpdateThread);
+                doAsynchronousTask.cancel();
+                Log.e("TIMER", "timer canceled");
+
+                checkbox.setChecked(false);
             }
         });
 
@@ -126,7 +142,7 @@ public class MapsActivity extends ActionBarActivity {
             public void onSwipeLeft() {
                    if(inLeft)
                    {
-                       toLeft();
+                     //  toLeft();
                        backButton.setVisibility(View.VISIBLE);
                        inLeft = false;
                    }
@@ -168,6 +184,8 @@ public class MapsActivity extends ActionBarActivity {
                 }
                 else{
                     data.setEnabled(true);
+                    online = false ;
+                    choosed_date = " ";
                 }
             }
         });
@@ -215,9 +233,18 @@ public class MapsActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("Tracking","onResume");
         setUpMap();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("Tracking", "onStop");
+        handler.removeCallbacks(mapUpdateThread);
+        if(doAsynchronousTask != null) doAsynchronousTask.cancel();
+
+    }
 
     private void backButtonPressed(){
         super.onBackPressed();
@@ -227,6 +254,9 @@ public class MapsActivity extends ActionBarActivity {
         flipper.setInAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_in_from_right));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_left));
         flipper.showNext();
+
+        infoButton.setVisibility(View.VISIBLE);
+
         Log.e("TracksCloud", "Flip to oLeft");
     }
 
@@ -234,6 +264,9 @@ public class MapsActivity extends ActionBarActivity {
         flipper.setInAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_in_from_left));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_right));
         flipper.showPrevious();
+
+        infoButton.setVisibility(View.INVISIBLE);
+
         Log.e("TracksCloud", "Flip to Right");
     }
 
@@ -314,8 +347,18 @@ public class MapsActivity extends ActionBarActivity {
                 dc.itemsList.clear();
                 choosedCab = parent.getItemAtPosition(position).toString();
 
-                getCoordsFromServer();
-                if(online)updateMapInfo();
+                if(choosed_date.length() > 1)
+                {
+                    getCoordsFromServer();
+                    if( !ItemsCountIsNull ) updateMapInfo();
+
+                }
+                else{
+
+                    Toast dateToast = Toast.makeText(getApplicationContext(), "Выберите дату", Toast.LENGTH_SHORT);
+                    dateToast.show();
+                    dialog.dismiss();
+                }
             }
 
         });
@@ -325,28 +368,55 @@ public class MapsActivity extends ActionBarActivity {
 
     public void getCoordsFromServer(){
 
-        dc.monitoring(choosedCab,choosed_date,
+            dc.monitoring(choosedCab, choosed_date,
+                    new CallBack() {
+                        @Override
+                        public void process(String o) {
+
+                            //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
+                            // toast11.show();
+                            dialog.dismiss();
+
+                            if (dc.itemsList.size() == 0) {
+                                Toast toast11 = Toast.makeText(getApplicationContext(), " Данных нет ", Toast.LENGTH_SHORT);
+                                toast11.show();
+                                ItemsCountIsNull = true;
+                            } else {
+                                ItemsCountIsNull = false;
+                                toLeft();
+                                addCoords();
+                                addDriverInfo(choosedCab);
+                                backButton.setVisibility(View.VISIBLE);
+
+                            }
+                        }
+
+                    },
+                    new CallBack() {
+                        @Override
+                        public void process(String o) {
+                            Toast toast3 = Toast.makeText(getApplicationContext(), "Не удалось получить координаты ", Toast.LENGTH_SHORT);
+                            toast3.show();
+                        }
+                    });
+
+    }
+
+    public void getUpdatedCoords(){
+        dc.monitoring(choosedCab, choosed_date,
                 new CallBack() {
                     @Override
                     public void process(String o) {
-
-                        //Toast toast11 = Toast.makeText(getApplicationContext(), " "+ dc.itemsList.get(0).latitude , Toast.LENGTH_SHORT);
-                        // toast11.show();
-                        dialog.dismiss();
-                        addCoords();
-                        addDriverInfo(choosedCab);
-                        if(online)toLeft();
-                        backButton.setVisibility(View.VISIBLE);
-                    }
+                            addCoords();
+                        }
                 },
                 new CallBack() {
                     @Override
                     public void process(String o) {
-                        Toast toast3 = Toast.makeText(getApplicationContext(), "Не удалось получить координаты ", Toast.LENGTH_SHORT);
-                        toast3.show();
+                        Toast toastU = Toast.makeText(getApplicationContext(), "Не удалось получить обновленные координаты ", Toast.LENGTH_SHORT);
+                        toastU.show();
                     }
                 });
-
     }
 
     public void addCoords() {
@@ -355,11 +425,6 @@ public class MapsActivity extends ActionBarActivity {
         PolylineOptions polyLineOptions = new PolylineOptions();
 
         gMap.clear();
-
-        if(dc.itemsList.size() == 0) {
-            Toast toast11 = Toast.makeText(getApplicationContext(), " Данных нет ", Toast.LENGTH_SHORT);
-            toast11.show();
-        }
 
         for(int i=0; i<dc.itemsList.size() ;i++){
             //gMap.addMarker(new MarkerOptions().position(new LatLng(dc.itemsList.get(i).latitude, dc.itemsList.get(i).longitude)));
@@ -373,7 +438,7 @@ public class MapsActivity extends ActionBarActivity {
 
         gMap.addPolyline(polyLineOptions);
 
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(points.get(points.size()-1) , 13.5f));
+        if(points.size() > 0)gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(points.get(points.size()-1) , 13.5f));
 
     }
 
@@ -392,36 +457,38 @@ public class MapsActivity extends ActionBarActivity {
 
     public  void updateMapInfo()
     {
-
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-
-        TimerTask doAsynchronousTask = new TimerTask() {
+        doAsynchronousTask = new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
-
-                    public void run() {
-                        try {
-                              online = false;
-
-                              dc.itemsList.clear();
-                              getCoordsFromServer();
-
-                              Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
-                              toastUpdate.show();
-                        }
-                        catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                handler.post(mapUpdateThread);
             }
         };
-        timer.schedule(doAsynchronousTask, 25000, 60000);
-
-
+        timer.schedule(doAsynchronousTask, 10000, 10000); //25 60
     }
+
+    public  Runnable mapUpdateThread = new Runnable() {
+        @Override
+        public void run() {
+            try {
+
+                if (online)
+                {
+                    dc.itemsList.clear();
+                    getUpdatedCoords();
+
+                    Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
+                    toastUpdate.show();
+
+                    Log.e("Tracking","online");
+                }
+                else {
+                    Log.e("Tracking","Its not online");
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 }
