@@ -39,6 +39,11 @@ public class DataController {
     public ArrayList<String> datelist;
     public ArrayList<Record> itemsList;
 
+    public ArrayList<String> fullNameList;
+    public ArrayList<String> carModelList;
+    public ArrayList<String> carNumberList;
+
+    public int selectedCar = 0;
 
     private  DataController(Context context){
 
@@ -48,6 +53,10 @@ public class DataController {
         itemsList = new ArrayList<Record>();
         driverList = new ArrayList<String>();
         datelist = new ArrayList<String>();
+
+        fullNameList = new ArrayList<String>();
+        carModelList = new ArrayList<String>();
+        carNumberList =new ArrayList<String>();
     }
 
     public static DataController getInstance(Context context){
@@ -125,6 +134,10 @@ public class DataController {
                                     cabsJSon = new JSONObject(object.get(i).toString());
                                     cabsList.add(cabsJSon.getString("cab_number"));
                                     driverList.add(cabsJSon.getString("full_name"));
+
+                                    fullNameList.add(cabsJSon.getString("full_name"));
+                                    carModelList.add(cabsJSon.getString("car_model"));
+                                    carNumberList.add(cabsJSon.getString("car_number"));
                                 }
 
                             } catch (JSONException e) {

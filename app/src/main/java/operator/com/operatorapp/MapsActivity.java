@@ -61,6 +61,8 @@ public class MapsActivity extends ActionBarActivity {
     TextView cabNumberView;
     TextView fullNameView;
 
+
+
     CheckBox checkbox;
 
     ProgressDialog dialog;
@@ -190,6 +192,30 @@ public class MapsActivity extends ActionBarActivity {
             }
         });
 
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View infoView = getLayoutInflater().inflate(R.layout.info_layout, null, false);
+
+                TextView driverName = (TextView)infoView.findViewById(R.id.driver_name);
+                TextView carModel = (TextView)infoView.findViewById(R.id.car_name);
+                TextView carNumber = (TextView)infoView.findViewById(R.id.car_number);
+                TextView carBoard = (TextView)infoView.findViewById(R.id.car_board);
+
+                driverName.setText(dc.fullNameList.get(dc.selectedCar));
+                carModel.setText(dc.carModelList.get(dc.selectedCar));
+                carNumber.setText(dc.carNumberList.get(dc.selectedCar));
+                carBoard.setText(dc.cabsList.get(dc.selectedCar));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder.setIcon(R.drawable.info_32);
+                builder.setTitle(R.string.app_name);
+                builder.setView(infoView);
+                builder.create();
+                builder.show();
+            }
+        });
 
     }
 
@@ -346,7 +372,7 @@ public class MapsActivity extends ActionBarActivity {
 
                 dc.itemsList.clear();
                 choosedCab = parent.getItemAtPosition(position).toString();
-
+                dc.selectedCar = position;
                 if(choosed_date.length() > 1)
                 {
                     getCoordsFromServer();
@@ -463,7 +489,7 @@ public class MapsActivity extends ActionBarActivity {
                 handler.post(mapUpdateThread);
             }
         };
-        timer.schedule(doAsynchronousTask, 10000, 10000); //25 60
+        timer.schedule(doAsynchronousTask, 25000, 60000); //25 60
     }
 
     public  Runnable mapUpdateThread = new Runnable() {
