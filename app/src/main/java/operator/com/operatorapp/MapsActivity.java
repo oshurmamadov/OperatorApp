@@ -126,7 +126,7 @@ public class MapsActivity extends ActionBarActivity {
                 doAsynchronousTask.cancel();
                 Log.e("TIMER", "timer canceled");
 
-                checkbox.setChecked(false);
+                switcher.setChecked(false);
             }
         });
 
