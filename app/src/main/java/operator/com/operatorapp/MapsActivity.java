@@ -222,7 +222,7 @@ public class MapsActivity extends ActionBarActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 builder.setIcon(R.drawable.info_32);
-                builder.setTitle(R.string.app_name);
+                builder.setTitle("Информация");
                 builder.setView(infoView);
                 builder.create();
                 builder.show();

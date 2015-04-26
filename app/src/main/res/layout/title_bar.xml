@@ -24,7 +24,8 @@
         android:text="driver full name"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/back_button"
-        android:layout_toEndOf="@+id/back_button" />
+        android:layout_toEndOf="@+id/back_button"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:id="@+id/cab_number"

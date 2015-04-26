@@ -10,10 +10,11 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/imageView"
-        android:background="@drawable/car"
+        android:background="@drawable/driver"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,39 +26,43 @@
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
         android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
+        android:layout_marginStart="11dp"
+        android:textColor="@color/mainColor" />
 
     <ImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/imageView2"
-        android:background="@drawable/car"
+        android:background="@drawable/car_model"
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView" />
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginLeft="10dp" />
 
     <ImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/imageView3"
-        android:background="@drawable/car"
+        android:background="@drawable/number"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/imageView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginLeft="10dp" />
 
     <ImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/imageView4"
-        android:background="@drawable/car"
+        android:background="@drawable/wheel"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/imageView3"
-        android:layout_toLeftOf="@+id/driver_name"
-        android:layout_toStartOf="@+id/driver_name"
-        android:layout_marginTop="25dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,9 +70,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Car name"
         android:id="@+id/car_name"
-        android:layout_alignBottom="@+id/imageView2"
+        android:layout_above="@+id/imageView3"
         android:layout_alignLeft="@+id/driver_name"
-        android:layout_alignStart="@+id/driver_name" />
+        android:layout_alignStart="@+id/driver_name"
+        android:textColor="@color/mainColor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,9 +81,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Car number"
         android:id="@+id/car_number"
-        android:layout_alignBottom="@+id/imageView3"
+        android:layout_above="@+id/imageView4"
         android:layout_alignLeft="@+id/car_name"
-        android:layout_alignStart="@+id/car_name" />
+        android:layout_alignStart="@+id/car_name"
+        android:textColor="@color/mainColor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,6 +94,7 @@
         android:id="@+id/car_board"
         android:layout_alignBottom="@+id/imageView4"
         android:layout_alignLeft="@+id/car_number"
-        android:layout_alignStart="@+id/car_number" />
+        android:layout_alignStart="@+id/car_number"
+        android:textColor="@color/mainColor" />
 
 </RelativeLayout>
