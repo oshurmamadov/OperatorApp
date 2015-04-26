@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -61,7 +62,9 @@ public class MapsActivity extends ActionBarActivity {
     TextView cabNumberView;
     TextView fullNameView;
 
+    ImageView calendarView;
 
+    Switch switcher;
 
     CheckBox checkbox;
 
@@ -115,7 +118,7 @@ public class MapsActivity extends ActionBarActivity {
                 inLeft = true;
 
                 cabNumberView.setText("");
-                fullNameView.setText("Choose date and cab number");
+                fullNameView.setText("Выберите дату и борт");
 
                 online = false;
 
@@ -153,7 +156,8 @@ public class MapsActivity extends ActionBarActivity {
         });
 
         data = (TextView) findViewById(R.id.date_view);
-        data.setOnClickListener(new View.OnClickListener() {
+        calendarView = (ImageView)findViewById(R.id.calendar);
+        calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog(DIALOG_DATE);
@@ -161,8 +165,16 @@ public class MapsActivity extends ActionBarActivity {
         });
 
 
-        checkbox = (CheckBox)findViewById(R.id.online_checkbox);
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       // checkbox = (CheckBox)findViewById(R.id.online_checkbox);
+       /* checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });*/
+
+        switcher = (Switch)findViewById(R.id.online_switch);
+        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
@@ -182,10 +194,10 @@ public class MapsActivity extends ActionBarActivity {
                         choosed_date = year + "-" + month + "-" + day;
                     }
                     online = true;
-                    data.setEnabled(false);
+                    calendarView.setEnabled(false);
                 }
                 else{
-                    data.setEnabled(true);
+                    calendarView.setEnabled(true);
                     online = false ;
                     choosed_date = " ";
                 }
@@ -238,13 +250,13 @@ public class MapsActivity extends ActionBarActivity {
                     {
                         _month += 1;
                         choosed_date = _year + "-0" + _month + "-" + _day;
-                        data.setText( "Дата : " + choosed_date );
+                        data.setText( choosed_date );
                     }
                     else
                     {
                         _month += 1;
                         choosed_date = _year + "-" + _month + "-" + _day;
-                        data.setText( "Дата : " + choosed_date );
+                        data.setText( choosed_date );
                     }
 
 
