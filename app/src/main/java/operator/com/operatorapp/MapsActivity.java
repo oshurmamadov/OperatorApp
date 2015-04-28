@@ -43,6 +43,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import operator.com.operatorapp.adapters.ListAdapter;
 import operator.com.operatorapp.adapters.Record;
 import operator.com.operatorapp.utils.CallBack;
 import operator.com.operatorapp.utils.DataController;
@@ -370,7 +371,8 @@ public class MapsActivity extends ActionBarActivity {
     public void fillList(){
 
         final ListView listView = (ListView) findViewById(R.id.cab_list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
+       // ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
+        ListAdapter adapter = new ListAdapter(MapsActivity.this,dc.fullNameList,dc.cabsList);
         listView.setAdapter(adapter);
 
 
