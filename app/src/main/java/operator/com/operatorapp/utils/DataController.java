@@ -35,7 +35,6 @@ public class DataController {
 
 
     public ArrayList<String> cabsList;
-    public ArrayList<String> driverList;
     public ArrayList<String> datelist;
     public ArrayList<Record> itemsList;
 
@@ -51,7 +50,6 @@ public class DataController {
         aq = new AQuery(context);
         cabsList = new ArrayList<String>();
         itemsList = new ArrayList<Record>();
-        driverList = new ArrayList<String>();
         datelist = new ArrayList<String>();
 
         fullNameList = new ArrayList<String>();
@@ -133,7 +131,6 @@ public class DataController {
                                 {
                                     cabsJSon = new JSONObject(object.get(i).toString());
                                     cabsList.add(cabsJSon.getString("cab_number"));
-                                    driverList.add(cabsJSon.getString("full_name"));
 
                                     fullNameList.add(cabsJSon.getString("full_name"));
                                     carModelList.add(cabsJSon.getString("car_model"));

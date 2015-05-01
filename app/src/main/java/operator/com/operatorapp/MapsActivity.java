@@ -277,6 +277,17 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.e("Tracking","onDestroy");
+        dc.cabsList.clear();
+        dc.datelist.clear();
+        dc.itemsList.clear();
+        dc.fullNameList.clear();
+        dc.carModelList.clear();
+        dc.carNumberList.clear();
+    }
+    @Override
     protected void onStop() {
         super.onStop();
         Log.e("Tracking", "onStop");
@@ -484,12 +495,12 @@ public class MapsActivity extends ActionBarActivity {
 
     public void addDriverInfo(String cabNumber){
 
-        for(int i=0 ; i<dc.driverList.size(); i++ )
+        for(int i=0 ; i<dc.fullNameList.size(); i++ )
         {
             if(cabNumber == dc.cabsList.get(i))
             {
                 cabNumberView.setText(dc.cabsList.get(i));
-                fullNameView.setText(dc.driverList.get(i));
+                fullNameView.setText(dc.fullNameList.get(i));
             }
         }
 
