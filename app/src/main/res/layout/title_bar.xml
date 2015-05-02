@@ -25,14 +25,14 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/back_button"
         android:layout_toEndOf="@+id/back_button"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="15dp" />
 
     <TextView
         android:id="@+id/cab_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14dp"
-        android:text="cab number"
+        android:text=""
         android:textColor="#ffffffff"
         android:layout_alignBottom="@+id/driver_full_name"
         android:layout_toRightOf="@+id/driver_full_name"

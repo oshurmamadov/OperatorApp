@@ -44,6 +44,8 @@ public class DataController {
 
     public int selectedCar = 0;
 
+    public Boolean onlineMode =false ;
+
     private  DataController(Context context){
 
         this.context = context;

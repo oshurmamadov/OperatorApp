@@ -211,12 +211,17 @@ public class MapsActivity extends ActionBarActivity {
 
                     online = true;
                     calendarView.setEnabled(false);
+                    data.setText("Дата");
+
+                    Log.e("TracksCloud", "online mode ON");
                 }
                 else{
                     calendarView.setEnabled(true);
                     online = false ;
                     choosed_date = " ";
-                    data.setText(choosed_date);
+                    data.setText("Дата" + choosed_date);
+
+                    Log.e("TracksCloud", "online mode OFF");
                 }
             }
         });
@@ -263,20 +268,6 @@ public class MapsActivity extends ActionBarActivity {
                     _month = monthOfYear;
                     _day = dayOfMonth;
 
-                  /*  if(_month < 10)
-                    {
-                        _month += 1;
-                        choosed_date = _year + "-0" + _month + "-" + _day;
-                        data.setText( choosed_date );
-                    }
-                    else
-                    {
-                        _month += 1;
-                        choosed_date = _year + "-" + _month + "-" + _day;
-                        data.setText( choosed_date );
-                    }*/
-
-
                     String strMonth;
                     String strDay;
 
@@ -310,6 +301,17 @@ public class MapsActivity extends ActionBarActivity {
         return super.onCreateDialog(id);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("Tracking","onStart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("Tracking","onPause");
+    }
 
     @Override
     protected void onResume() {
@@ -372,6 +374,7 @@ public class MapsActivity extends ActionBarActivity {
             gMap.getUiSettings().setMyLocationButtonEnabled(false);
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.867157, 74.613262), 12.0f) );
 
+            Log.e("Tracking","The map is load");
 
             gMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                 @Override
@@ -395,6 +398,7 @@ public class MapsActivity extends ActionBarActivity {
                         public void process(String o) {
                             dialog.dismiss();
                             fillList();
+                            Log.e("Tracking","loading cabs ,car model,car number,full name");
                             //fillSpinner();
                         }
                     },
@@ -439,6 +443,7 @@ public class MapsActivity extends ActionBarActivity {
                 dc.selectedCar = position;
                 if(choosed_date.length() > 1)
                 {
+                    Log.e("Tracking",choosedCab+" is choosed");
                     getCoordsFromServer();
                     if( !ItemsCountIsNull ) updateMapInfo();
 
@@ -471,13 +476,19 @@ public class MapsActivity extends ActionBarActivity {
                                 Toast toast11 = Toast.makeText(getApplicationContext(), " Данных нет ", Toast.LENGTH_SHORT);
                                 toast11.show();
                                 ItemsCountIsNull = true;
+
+                                Log.e("Tracking","There is no data");
                             } else {
                                 ItemsCountIsNull = false;
                                 toLeft();
+
+                                Log.e("Tracking","Drawing trace");
                                 addCoords();
+
                                 addDriverInfo(choosedCab);
                                 backButton.setVisibility(View.VISIBLE);
 
+                                Log.e("Tracking","Loading coords from heroku");
                             }
                         }
 
@@ -530,6 +541,7 @@ public class MapsActivity extends ActionBarActivity {
 
         if(points.size() > 0)gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(points.get(points.size()-1) , 13.5f));
 
+       // Log.e("Tracking","Drawing trace");
     }
 
     public void addDriverInfo(String cabNumber){
@@ -538,22 +550,26 @@ public class MapsActivity extends ActionBarActivity {
         {
             if(cabNumber == dc.cabsList.get(i))
             {
-                cabNumberView.setText(dc.cabsList.get(i));
+                //cabNumberView.setText(dc.cabsList.get(i));
                 fullNameView.setText(dc.fullNameList.get(i));
             }
         }
 
+        Log.e("Tracking","Add driver info");
     }
 
     public  void updateMapInfo()
     {
+        Log.e("Tracking","Thread is started");
+
         doAsynchronousTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(mapUpdateThread);
             }
         };
-        timer.schedule(doAsynchronousTask, 25000, 60000); //25 60
+        //timer.schedule(doAsynchronousTask, 25000, 60000); //25 60
+        timer.schedule(doAsynchronousTask, 5000, 10000);
     }
 
     public  Runnable mapUpdateThread = new Runnable() {
@@ -569,7 +585,7 @@ public class MapsActivity extends ActionBarActivity {
                     Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
                     toastUpdate.show();
 
-                    Log.e("Tracking","online");
+                    Log.e("Tracking","Coord was updated");
                 }
                 else {
                     Log.e("Tracking","Its not online");
