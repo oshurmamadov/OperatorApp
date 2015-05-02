@@ -184,16 +184,31 @@ public class MapsActivity extends ActionBarActivity {
                     int month = calendar.get(Calendar.MONTH);
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+                    String strMonth;
+                    String strDay;
+
                     if(month < 10)
                     {
                         month += 1;
-                        choosed_date = year + "-0" + month + "-" + day;
+                        strMonth = "-0" + month;
                     }
                     else
                     {
                         month += 1;
-                        choosed_date = year + "-" + month + "-" + day;
+                        strMonth = "-" + month;
                     }
+
+                    if(day < 10)
+                    {
+                        strDay = "-0" + day;
+                    }
+                    else
+                    {
+                        strDay = "-" + day;
+                    }
+
+                    choosed_date = year + strMonth + strDay;
+
                     online = true;
                     calendarView.setEnabled(false);
                 }
@@ -201,6 +216,7 @@ public class MapsActivity extends ActionBarActivity {
                     calendarView.setEnabled(true);
                     online = false ;
                     choosed_date = " ";
+                    data.setText(choosed_date);
                 }
             }
         });
@@ -247,7 +263,7 @@ public class MapsActivity extends ActionBarActivity {
                     _month = monthOfYear;
                     _day = dayOfMonth;
 
-                    if(_month < 10)
+                  /*  if(_month < 10)
                     {
                         _month += 1;
                         choosed_date = _year + "-0" + _month + "-" + _day;
@@ -258,8 +274,34 @@ public class MapsActivity extends ActionBarActivity {
                         _month += 1;
                         choosed_date = _year + "-" + _month + "-" + _day;
                         data.setText( choosed_date );
+                    }*/
+
+
+                    String strMonth;
+                    String strDay;
+
+                    if(_month < 10)
+                    {
+                        _month += 1;
+                        strMonth = "-0" + _month;
+                    }
+                    else
+                    {
+                        _month += 1;
+                        strMonth = "-" + _month;
                     }
 
+                    if(_day < 10)
+                    {
+                        strDay = "-0" + _day;
+                    }
+                    else
+                    {
+                        strDay = "-" + _day;
+                    }
+
+                    choosed_date = _year + strMonth + strDay;
+                    data.setText( choosed_date );
 
                 }
             }, _year, _month  , _day);
@@ -385,9 +427,6 @@ public class MapsActivity extends ActionBarActivity {
        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
         ListAdapter adapter = new ListAdapter(MapsActivity.this,dc.fullNameList,dc.cabsList);
         listView.setAdapter(adapter);
-
-
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
