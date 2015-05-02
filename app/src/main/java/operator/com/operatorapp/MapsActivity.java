@@ -128,6 +128,8 @@ public class MapsActivity extends ActionBarActivity {
                 Log.e("TIMER", "timer canceled");
 
                 switcher.setChecked(false);
+
+                dc.onlineMode = false;
             }
         });
 
@@ -213,6 +215,8 @@ public class MapsActivity extends ActionBarActivity {
                     calendarView.setEnabled(false);
                     data.setText("Дата");
 
+                    dc.onlineMode = true;
+
                     Log.e("TracksCloud", "online mode ON");
                 }
                 else{
@@ -220,6 +224,8 @@ public class MapsActivity extends ActionBarActivity {
                     online = false ;
                     choosed_date = " ";
                     data.setText("Дата" + choosed_date);
+
+                    dc.onlineMode = false;
 
                     Log.e("TracksCloud", "online mode OFF");
                 }
@@ -305,6 +311,12 @@ public class MapsActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
         Log.e("Tracking","onStart");
+
+        if(dc.onlineMode && !ItemsCountIsNull){
+            if(handler != null )handler.removeCallbacks(mapUpdateThread);
+            if(doAsynchronousTask != null )doAsynchronousTask.cancel();
+            updateMapInfo();
+        }
     }
 
     @Override
@@ -445,7 +457,13 @@ public class MapsActivity extends ActionBarActivity {
                 {
                     Log.e("Tracking",choosedCab+" is choosed");
                     getCoordsFromServer();
-                    if( !ItemsCountIsNull ) updateMapInfo();
+
+                   // {
+                        if(handler != null )handler.removeCallbacks(mapUpdateThread);
+                        if(doAsynchronousTask != null )doAsynchronousTask.cancel();
+
+                        updateMapInfo();
+                    //}
 
                 }
                 else{
@@ -473,9 +491,10 @@ public class MapsActivity extends ActionBarActivity {
                             dialog.dismiss();
 
                             if (dc.itemsList.size() == 0) {
+                                ItemsCountIsNull = true;
+
                                 Toast toast11 = Toast.makeText(getApplicationContext(), " Данных нет ", Toast.LENGTH_SHORT);
                                 toast11.show();
-                                ItemsCountIsNull = true;
 
                                 Log.e("Tracking","There is no data");
                             } else {
@@ -579,13 +598,17 @@ public class MapsActivity extends ActionBarActivity {
 
                 if (online)
                 {
-                    dc.itemsList.clear();
-                    getUpdatedCoords();
+                    if( !ItemsCountIsNull )
+                    {
 
-                    Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
-                    toastUpdate.show();
+                        dc.itemsList.clear();
+                        getUpdatedCoords();
 
-                    Log.e("Tracking","Coord was updated");
+                        Toast toastUpdate = Toast.makeText(getApplicationContext(), " Данные обновлены", Toast.LENGTH_SHORT);
+                        toastUpdate.show();
+
+                        Log.e("Tracking", "Coord was updated");
+                    }
                 }
                 else {
                     Log.e("Tracking","Its not online");
