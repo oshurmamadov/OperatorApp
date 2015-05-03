@@ -636,7 +636,8 @@ public class MapsActivity extends ActionBarActivity {
         switch (id){
             case R.id.itemAddBoard:
                 Log.e("MENU","add new board");
-
+                Intent intent =new Intent(MapsActivity.this,AddDriver.class);
+                startActivity(intent);
                 return true;
             case R.id.itemInfo:
                 Log.e("MENU","info");
