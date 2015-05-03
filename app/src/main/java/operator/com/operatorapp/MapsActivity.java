@@ -14,6 +14,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -619,5 +621,36 @@ public class MapsActivity extends ActionBarActivity {
             }
         }
     };
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_maps, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.itemAddBoard:
+                Log.e("MENU","add new board");
+
+                return true;
+            case R.id.itemInfo:
+                Log.e("MENU","info");
+
+                return true;
+            case R.id.itemRefresh:
+                Log.e("MENU","refresh");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }
