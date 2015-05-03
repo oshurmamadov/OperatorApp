@@ -645,6 +645,15 @@ public class MapsActivity extends ActionBarActivity {
                 return true;
             case R.id.itemRefresh:
                 Log.e("MENU","refresh");
+
+                dc.cabsList.clear();
+                dc.datelist.clear();
+                dc.itemsList.clear();
+                dc.fullNameList.clear();
+                dc.carModelList.clear();
+                dc.carNumberList.clear();
+
+                getCabsList();
                 return true;
 
             default:

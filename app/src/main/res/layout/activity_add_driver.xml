@@ -23,8 +23,8 @@
         android:ems="10"
         android:id="@+id/editBoard"
         android:layout_alignTop="@+id/add_boardNumber"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_alignLeft="@+id/saveButton"
+        android:layout_alignStart="@+id/saveButton"
         android:text="1990" />
 
     <TextView
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editCarModel"
         android:layout_marginBottom="49dp"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/saveButton"
         android:layout_alignLeft="@+id/editCarNumber"
         android:layout_alignStart="@+id/editCarNumber"
         android:text="Lada Priora" />
@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Сохранить"
-        android:id="@+id/button"
+        android:id="@+id/saveButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp" />

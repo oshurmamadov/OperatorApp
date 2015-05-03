@@ -32,7 +32,9 @@ public class DataController {
     private JSONObject requestJSon;
     private String requestStatus ;
     private JSONObject cabsJSon;
+    public JSONObject saveJSon;
 
+    public String saveStatus;
 
     public ArrayList<String> cabsList;
     public ArrayList<String> datelist;
@@ -138,6 +140,40 @@ public class DataController {
                                     carModelList.add(cabsJSon.getString("car_model"));
                                     carNumberList.add(cabsJSon.getString("car_number"));
                                 }
+
+                            } catch (JSONException e) {
+                                Log.e("Tracking", "Catched JSONException. result was: " + o);
+                            }
+                        }
+                        success.process(o);
+                    }
+                },
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        failure.process(null);
+                    }
+                }
+        );
+    }
+
+
+    public void addNewDriver(String board ,String phone,String name,String pass,String carNumber,String carModel , final CallBack success, final CallBack failure){
+
+        String url = String.format("http://serverdp.herokuapp.com/add_new_driver?cab_number=%s&phone_number=%s&full_name=%s&password=%s&car_number=%s&car_model=%s", board ,phone,name,pass,carNumber,carModel);
+        requestServer(url,
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        if(!o.equals("")) {
+                            //Log.e("Jush", "Callback 4");
+                            try {
+
+                                saveJSon = new JSONObject(o.toString());
+
+                                saveStatus  = saveJSon.getString("status");
+
+                                Log.e("Tracking","saved request status :"+saveStatus);
 
                             } catch (JSONException e) {
                                 Log.e("Tracking", "Catched JSONException. result was: " + o);
