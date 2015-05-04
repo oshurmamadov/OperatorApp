@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,13 @@ public class AddDriver extends ActionBarActivity {
     TextView cabNumberView;
     TextView fullNameView;
 
+    EditText addBoard;
+    EditText addPhone;
+    EditText addFIO;
+    EditText addPass;
+    EditText addCarNumber;
+    EditText addCarModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,14 @@ public class AddDriver extends ActionBarActivity {
 
         getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.title_bar);
+
+
+        addBoard = (EditText)findViewById(R.id.editBoard);
+        addPhone = (EditText)findViewById(R.id.editPhone);
+        addFIO = (EditText)findViewById(R.id.editFIO);
+        addPass = (EditText)findViewById(R.id.editPass);
+        addCarNumber = (EditText)findViewById(R.id.editCarNumber);
+        addCarModel = (EditText)findViewById(R.id.editCarModel);
 
         infoButton = (ImageButton) findViewById(R.id.info);
         infoButton.setVisibility(View.GONE);
@@ -69,12 +85,14 @@ public class AddDriver extends ActionBarActivity {
     }
 
     public void addNewDriver(){
-        dc.addNewDriver("9090","0700908990","Maximus Augusto","test350","ST3456P","Lada Priora",
+        dc.addNewDriver(addBoard.getText().toString(),addPhone.getText().toString(),
+                        addFIO.getText().toString(),addPass.getText().toString(),
+                        addCarNumber.getText().toString(),addCarModel.getText().toString(),
                 new CallBack() {
                     @Override
                     public void process(String o) {
 
-                        Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель добавлен " , Toast.LENGTH_SHORT);
+                        Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован " , Toast.LENGTH_SHORT);
                         toastSave.show();
                     }
                 },

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.opengl.Visibility;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -67,6 +68,10 @@ public class MapsActivity extends ActionBarActivity {
 
     ImageView calendarView;
 
+    MenuItem infoItem;
+    MenuItem addItem;
+    MenuItem refreshItem;
+
     Switch switcher;
 
     CheckBox checkbox;
@@ -90,6 +95,8 @@ public class MapsActivity extends ActionBarActivity {
     Handler handler = new Handler();
     TimerTask doAsynchronousTask ;
     Timer timer = new Timer();
+
+    public int semaphor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +226,7 @@ public class MapsActivity extends ActionBarActivity {
 
                     dc.onlineMode = true;
 
-                    Log.e("TracksCloud", "online mode ON");
+                    Log.e("Tracking", "online mode ON");
                 }
                 else{
                     calendarView.setEnabled(true);
@@ -229,35 +236,12 @@ public class MapsActivity extends ActionBarActivity {
 
                     dc.onlineMode = false;
 
-                    Log.e("TracksCloud", "online mode OFF");
+                    Log.e("Tracking", "online mode OFF");
                 }
             }
         });
 
-
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View infoView = getLayoutInflater().inflate(R.layout.info_layout, null, false);
-
-                TextView driverName = (TextView)infoView.findViewById(R.id.driver_name);
-                TextView carModel = (TextView)infoView.findViewById(R.id.car_name);
-                TextView carNumber = (TextView)infoView.findViewById(R.id.car_number);
-                TextView carBoard = (TextView)infoView.findViewById(R.id.car_board);
-
-                driverName.setText(dc.fullNameList.get(dc.selectedCar));
-                carModel.setText(dc.carModelList.get(dc.selectedCar));
-                carNumber.setText(dc.carNumberList.get(dc.selectedCar));
-                carBoard.setText(dc.cabsList.get(dc.selectedCar));
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                builder.setIcon(R.drawable.info_32);
-                builder.setTitle("Информация");
-                builder.setView(infoView);
-                builder.create();
-                builder.show();
-            }
-        });
+        infoButton.setVisibility(View.GONE);
 
     }
 
@@ -363,9 +347,16 @@ public class MapsActivity extends ActionBarActivity {
         flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_left));
         flipper.showNext();
 
-        infoButton.setVisibility(View.VISIBLE);
+       // infoButton.setVisibility(View.VISIBLE);
 
-        Log.e("TracksCloud", "Flip to oLeft");
+        semaphor = 1;
+
+        infoItem.setVisible(true);
+        addItem.setVisible(false);
+        refreshItem.setVisible(false);
+        invalidateOptionsMenu();
+
+        Log.e("Tracking", "Flip to oLeft");
     }
 
     public void toRight(){
@@ -373,9 +364,16 @@ public class MapsActivity extends ActionBarActivity {
         flipper.setOutAnimation(AnimationUtils.loadAnimation(MapsActivity.this, R.anim.slide_out_to_right));
         flipper.showPrevious();
 
-        infoButton.setVisibility(View.INVISIBLE);
+        //infoButton.setVisibility(View.INVISIBLE);
 
-        Log.e("TracksCloud", "Flip to Right");
+        semaphor = 0;
+
+        infoItem.setVisible(false);
+        addItem.setVisible(true);
+        refreshItem.setVisible(true);
+        invalidateOptionsMenu();
+
+        Log.e("Tracking", "Flip to Right");
     }
 
 
@@ -627,6 +625,22 @@ public class MapsActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_maps, menu);
+
+        addItem = menu.findItem(R.id.itemAddBoard);
+        infoItem = menu.findItem(R.id.itemInfo);
+        refreshItem = menu.findItem(R.id.itemRefresh);
+
+        if(semaphor == 0)
+        {
+            infoItem.setVisible(false);
+            invalidateOptionsMenu();
+        }else{
+            infoItem.setVisible(true);
+            addItem.setVisible(false);
+            refreshItem.setVisible(false);
+            invalidateOptionsMenu();
+        }
+
         return true;
     }
 
@@ -641,6 +655,25 @@ public class MapsActivity extends ActionBarActivity {
                 return true;
             case R.id.itemInfo:
                 Log.e("MENU","info");
+
+                View infoView = getLayoutInflater().inflate(R.layout.info_layout, null, false);
+
+                TextView driverName = (TextView)infoView.findViewById(R.id.driver_name);
+                TextView carModel = (TextView)infoView.findViewById(R.id.car_name);
+                TextView carNumber = (TextView)infoView.findViewById(R.id.car_number);
+                TextView carBoard = (TextView)infoView.findViewById(R.id.car_board);
+
+                driverName.setText(dc.fullNameList.get(dc.selectedCar));
+                carModel.setText(dc.carModelList.get(dc.selectedCar));
+                carNumber.setText(dc.carNumberList.get(dc.selectedCar));
+                carBoard.setText(dc.cabsList.get(dc.selectedCar));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder.setIcon(R.drawable.info_32);
+                builder.setTitle("Информация");
+                builder.setView(infoView);
+                builder.create();
+                builder.show();
 
                 return true;
             case R.id.itemRefresh:

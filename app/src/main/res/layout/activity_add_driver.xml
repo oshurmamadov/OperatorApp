@@ -5,128 +5,31 @@
     tools:context="operator.com.operatorapp.AddDriver">
 
 
+
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Борт"
-        android:id="@+id/add_boardNumber"
-        android:layout_marginBottom="38dp"
-        android:layout_above="@+id/editPhone"
-        android:layout_alignLeft="@+id/add_PhoneNumber"
-        android:layout_alignStart="@+id/add_PhoneNumber" />
+        android:id="@+id/addBoard"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editBoard"
-        android:layout_alignTop="@+id/add_boardNumber"
-        android:layout_alignLeft="@+id/saveButton"
-        android:layout_alignStart="@+id/saveButton"
-        android:text="1990" />
+        android:layout_above="@+id/addPhone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:text="1040" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Телефон"
-        android:id="@+id/add_PhoneNumber"
-        android:layout_alignTop="@+id/editPhone"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editPhone"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/editFIO"
-        android:layout_alignLeft="@+id/editBoard"
-        android:layout_alignStart="@+id/editBoard"
-        android:text="0700909080" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Ф.И.О"
-        android:id="@+id/add_FIO"
-        android:layout_alignBottom="@+id/editFIO"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Alex Amorales"
-        android:ems="10"
-        android:id="@+id/editFIO"
-        android:layout_marginBottom="32dp"
-        android:layout_above="@+id/add_pawssword"
-        android:layout_alignLeft="@+id/editPhone"
-        android:layout_alignStart="@+id/editPhone" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Пароль"
-        android:id="@+id/add_pawssword"
-        android:layout_above="@+id/editCarNumber"
-        android:layout_marginBottom="26dp" />
-
-    <EditText
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/editPass"
-        android:layout_below="@+id/editFIO"
-        android:layout_alignLeft="@+id/editPhone"
-        android:layout_alignStart="@+id/editPhone"
-        android:text="test150" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Номера машины"
-        android:id="@+id/add_carNumber"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/add_carModel"
-        android:layout_alignStart="@+id/add_carModel" />
-
-    <EditText
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/editCarNumber"
-        android:layout_alignBottom="@+id/add_carNumber"
-        android:layout_toRightOf="@+id/add_carModel"
-        android:layout_toEndOf="@+id/add_carModel"
-        android:text="AX9862S" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Модель машины"
-        android:id="@+id/add_carModel"
-        android:layout_alignBottom="@+id/editCarModel"
-        android:layout_alignLeft="@+id/add_PhoneNumber"
-        android:layout_alignStart="@+id/add_PhoneNumber" />
-
-    <EditText
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/editCarModel"
-        android:layout_marginBottom="49dp"
-        android:layout_above="@+id/saveButton"
-        android:layout_alignLeft="@+id/editCarNumber"
-        android:layout_alignStart="@+id/editCarNumber"
-        android:text="Lada Priora" />
 
     <Button
         android:layout_width="wrap_content"
@@ -135,7 +38,99 @@
         android:id="@+id/saveButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp" />
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Телефон"
+        android:id="@+id/addPhone"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/addBoard"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editPhone"
+        android:layout_alignBottom="@+id/addPhone"
+        android:layout_alignLeft="@+id/editBoard"
+        android:text="0700456545" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ф.И.О"
+        android:id="@+id/addFIO"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/addPhone"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editFIO"
+        android:layout_alignBottom="@+id/addFIO"
+        android:layout_alignLeft="@+id/editPhone"
+        android:text="Ramzan Kadirov" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Пароль"
+        android:id="@+id/addPass"
+        android:layout_below="@+id/addFIO"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPass"
+        android:layout_alignBottom="@+id/addPass"
+        android:layout_alignLeft="@+id/editFIO"
+        android:text="chechnya" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Номера авто"
+        android:id="@+id/addCarNumber"
+        android:layout_below="@+id/addPass"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editCarNumber"
+        android:layout_alignBottom="@+id/addCarNumber"
+        android:layout_alignLeft="@+id/editPass"
+        android:text="AX9595T" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Модель авто"
+        android:id="@+id/addCarModel"
+        android:layout_below="@+id/addCarNumber"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editCarModel"
+        android:layout_alignBottom="@+id/addCarModel"
+        android:layout_alignLeft="@+id/editCarNumber"
+        android:text="Lada Kalina" />
 
 
 </RelativeLayout>
