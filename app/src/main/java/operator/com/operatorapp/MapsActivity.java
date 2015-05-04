@@ -328,6 +328,7 @@ public class MapsActivity extends ActionBarActivity {
         dc.fullNameList.clear();
         dc.carModelList.clear();
         dc.carNumberList.clear();
+        dc.phoneNumberList.clear();
     }
     @Override
     protected void onStop() {
@@ -685,6 +686,7 @@ public class MapsActivity extends ActionBarActivity {
                 dc.fullNameList.clear();
                 dc.carModelList.clear();
                 dc.carNumberList.clear();
+                dc.phoneNumberList.clear();
 
                 getCabsList();
                 return true;

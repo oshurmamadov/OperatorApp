@@ -85,24 +85,62 @@ public class AddDriver extends ActionBarActivity {
     }
 
     public void addNewDriver(){
-        dc.addNewDriver(addBoard.getText().toString(),addPhone.getText().toString(),
-                        addFIO.getText().toString(),addPass.getText().toString(),
-                        addCarNumber.getText().toString(),addCarModel.getText().toString(),
-                new CallBack() {
-                    @Override
-                    public void process(String o) {
 
-                        Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован " , Toast.LENGTH_SHORT);
-                        toastSave.show();
-                    }
-                },
-                new CallBack() {
-                    @Override
-                    public void process(String o) {
-                        Toast toast3 = Toast.makeText(getApplicationContext(), "Ошибка ", Toast.LENGTH_SHORT);
-                        toast3.show();
-                    }
-                });
+     if(!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString()))
+     {
+         dc.addNewDriver(addBoard.getText().toString(), addPhone.getText().toString(),
+                 addFIO.getText().toString(), addPass.getText().toString(),
+                 addCarNumber.getText().toString(), addCarModel.getText().toString(),
+                 new CallBack() {
+                     @Override
+                     public void process(String o) {
+
+                         Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован ", Toast.LENGTH_SHORT);
+                         toastSave.show();
+                     }
+                 },
+                 new CallBack() {
+                     @Override
+                     public void process(String o) {
+                         Toast toast3 = Toast.makeText(getApplicationContext(), "Ошибка ", Toast.LENGTH_SHORT);
+                         toast3.show();
+                     }
+                 });
+     }else{
+         Toast toastError = Toast.makeText(getApplicationContext(), "Водитель с таким бортом или телефоном или гос.номерами уже зарегистрирован ", Toast.LENGTH_LONG);
+         toastError.show();
+     }
+    }
+
+    public boolean checkBoard(String board){
+
+        boolean flag = false;
+        for(int i = 0; i < dc.cabsList.size(); i++){
+            if(board.equals(dc.cabsList.get(i)) ) flag = true;
+        }
+
+        return  flag;
+    }
+
+    public boolean checkPhone(String phone ){
+        boolean flag = false;
+        for(int i = 0; i < dc.cabsList.size(); i++){
+            if(phone.equals(dc.phoneNumberList.get(i)) ) flag = true;
+        }
+
+        return  flag;
+
+    }
+
+    public boolean checkCarNumber(String carNumber){
+
+        boolean flag = false;
+        for(int i = 0; i < dc.cabsList.size(); i++){
+            if(carNumber.equals(dc.carNumberList.get(i)) ) flag = true;
+        }
+
+        return  flag;
+
     }
 
 }
