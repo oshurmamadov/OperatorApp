@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="operator.com.operatorapp.AddDriver">
+    tools:context="operator.com.operatorapp.AddDriver"
+    android:background="@color/middleColor">
 
 
 
@@ -16,10 +17,12 @@
         android:text="Борт"
         android:id="@+id/addBoard"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffffff"
+        android:elegantTextHeight="false" />
 
     <EditText
-        android:layout_width="200dp"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
@@ -28,7 +31,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
-        android:text="1040" />
+        android:text="1040"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
 
 
     <Button
@@ -38,7 +44,11 @@
         android:id="@+id/saveButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:background="@color/mainColor"
+        android:textColor="#ffffff"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +58,8 @@
         android:id="@+id/addPhone"
         android:layout_marginTop="45dp"
         android:layout_below="@+id/addBoard"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="200dp"
@@ -58,7 +69,10 @@
         android:id="@+id/editPhone"
         android:layout_alignBottom="@+id/addPhone"
         android:layout_alignLeft="@+id/editBoard"
-        android:text="0700456545" />
+        android:text="0700456545"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +82,8 @@
         android:id="@+id/addFIO"
         android:layout_marginTop="45dp"
         android:layout_below="@+id/addPhone"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="200dp"
@@ -76,7 +91,10 @@
         android:id="@+id/editFIO"
         android:layout_alignBottom="@+id/addFIO"
         android:layout_alignLeft="@+id/editPhone"
-        android:text="Ramzan Kadirov" />
+        android:text="Ramzan Kadirov"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +104,8 @@
         android:id="@+id/addPass"
         android:layout_below="@+id/addFIO"
         android:layout_marginTop="45dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="200dp"
@@ -94,17 +113,21 @@
         android:id="@+id/editPass"
         android:layout_alignBottom="@+id/addPass"
         android:layout_alignLeft="@+id/editFIO"
-        android:text="chechnya" />
+        android:text="chechnya"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Номера авто"
+        android:text="Гос.номера"
         android:id="@+id/addCarNumber"
         android:layout_below="@+id/addPass"
         android:layout_marginTop="45dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="200dp"
@@ -112,17 +135,21 @@
         android:id="@+id/editCarNumber"
         android:layout_alignBottom="@+id/addCarNumber"
         android:layout_alignLeft="@+id/editPass"
-        android:text="AX9595T" />
+        android:text="AX9595T"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Модель авто"
+        android:text="Модель"
         android:id="@+id/addCarModel"
         android:layout_below="@+id/addCarNumber"
         android:layout_marginTop="45dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
 
     <EditText
         android:layout_width="200dp"
@@ -130,7 +157,121 @@
         android:id="@+id/editCarModel"
         android:layout_alignBottom="@+id/addCarModel"
         android:layout_alignLeft="@+id/editCarNumber"
-        android:text="Lada Kalina" />
+        android:text="Lada Kalina"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView7"
+        android:background="@drawable/cell2"
+        android:layout_alignTop="@+id/editPhone"
+        android:layout_toLeftOf="@+id/editPhone"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView8"
+        android:background="@drawable/iboard"
+        android:layout_alignTop="@+id/editBoard"
+        android:layout_toLeftOf="@+id/editBoard"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView9"
+        android:background="@drawable/idriver"
+        android:layout_alignTop="@+id/editFIO"
+        android:layout_toLeftOf="@+id/editFIO"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="7dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView10"
+        android:background="@drawable/ipass"
+        android:layout_alignTop="@+id/editPass"
+        android:layout_toLeftOf="@+id/editPass"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView11"
+        android:background="@drawable/inumber"
+        android:layout_alignTop="@+id/editCarNumber"
+        android:layout_toLeftOf="@+id/editCarNumber"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView12"
+        android:background="@drawable/icar"
+        android:layout_alignTop="@+id/editCarModel"
+        android:layout_toLeftOf="@+id/editCarModel"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="9dp"  />
+<!-- *******************************************-->
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView13"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView14"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editBoard"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView15"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editFIO"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView16"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editPass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView17"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editCarNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>

@@ -6,5 +6,5 @@
     <color name="loginColor">#7B0794</color>
     <color name="mainColor">#7B0794</color>
     <color name="middleColor">#d234dd</color>
-    <color name="customWhiteAlpha">#66ffffff</color>
+    <color name="customWhiteAlpha">#adffffff</color>
 </resources>

@@ -1,9 +1,12 @@
 package operator.com.operatorapp;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +55,46 @@ public class AddDriver extends ActionBarActivity {
         addPass = (EditText)findViewById(R.id.editPass);
         addCarNumber = (EditText)findViewById(R.id.editCarNumber);
         addCarModel = (EditText)findViewById(R.id.editCarModel);
+
+        Typeface font = Typeface.createFromAsset(AddDriver.this.getAssets(), "fonts/roboto_bold.ttf");
+        Typeface fontBold = Typeface.createFromAsset(AddDriver.this.getAssets(),"fonts/roboto_bold.ttf");
+
+        addBoard.setTypeface(font);
+        addPhone.setTypeface(font);
+        addFIO.setTypeface(font);
+        addPass.setTypeface(font);
+        addCarNumber.setTypeface(font);
+        addCarModel.setTypeface(font);
+
+      //  addBoard.setOnTouchListener(editTouched);
+        addBoard.setOnFocusChangeListener(editTextFocused1);
+        addPhone.setOnFocusChangeListener(editTextFocused2);
+        addFIO.setOnFocusChangeListener(editTextFocused3);
+        addPass.setOnFocusChangeListener(editTextFocused4);
+        addCarNumber.setOnFocusChangeListener(editTextFocused5);
+        addCarModel.setOnFocusChangeListener(editTextFocused6);
+
+      /*  addBoard.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) addBoard.setTextColor(Color.WHITE);
+                else  addBoard.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+            }
+        });*/
+
+        TextView addBoardText = (TextView)findViewById(R.id.addBoard);
+        TextView addPhoneText = (TextView)findViewById(R.id.addPhone);
+        TextView addFIOText = (TextView)findViewById(R.id.addFIO);
+        TextView addPassText = (TextView)findViewById(R.id.addPass);
+        TextView addCarText = (TextView)findViewById(R.id.addCarNumber);
+        TextView addModelText = (TextView)findViewById(R.id.addCarModel);
+
+        addBoardText.setTypeface(fontBold);
+        addPhoneText.setTypeface(fontBold);
+        addFIOText.setTypeface(fontBold);
+        addPassText.setTypeface(fontBold);
+        addCarText.setTypeface(fontBold);
+        addModelText.setTypeface(fontBold);
 
         infoButton = (ImageButton) findViewById(R.id.info);
         infoButton.setVisibility(View.GONE);
@@ -142,5 +185,65 @@ public class AddDriver extends ActionBarActivity {
         return  flag;
 
     }
+
+    View.OnTouchListener editTouched = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            addBoard.setTextColor(Color.WHITE);
+
+            return false;
+        }
+    };
+
+
+        View.OnFocusChangeListener editTextFocused1 = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) addBoard.setTextColor(Color.WHITE);
+                else  addBoard.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+            }
+        };
+
+    View.OnFocusChangeListener editTextFocused2 = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) addPhone.setTextColor(Color.WHITE);
+            else  addPhone.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+        }
+    };
+
+    View.OnFocusChangeListener editTextFocused3 = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) addFIO.setTextColor(Color.WHITE);
+            else  addFIO.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+        }
+    };
+
+    View.OnFocusChangeListener editTextFocused4 = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) addPass.setTextColor(Color.WHITE);
+            else  addPass.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+        }
+    };
+
+    View.OnFocusChangeListener editTextFocused5 = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) addCarNumber.setTextColor(Color.WHITE);
+            else  addCarNumber.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+        }
+    };
+
+    View.OnFocusChangeListener editTextFocused6 = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) addCarModel.setTextColor(Color.WHITE);
+            else  addCarModel.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
+        }
+    };
+
 
 }

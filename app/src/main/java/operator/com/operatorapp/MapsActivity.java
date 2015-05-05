@@ -173,6 +173,7 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 showDialog(DIALOG_DATE);
+                data.setTextColor(getResources().getColor(R.color.white));
             }
         });
 
@@ -223,7 +224,7 @@ public class MapsActivity extends ActionBarActivity {
                     online = true;
                     calendarView.setEnabled(false);
                     data.setText("Дата");
-
+                    data.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
                     dc.onlineMode = true;
 
                     Log.e("Tracking", "online mode ON");
@@ -235,6 +236,7 @@ public class MapsActivity extends ActionBarActivity {
                     data.setText("Дата" + choosed_date);
 
                     dc.onlineMode = false;
+                    data.setTextColor(getResources().getColor(R.color.white));
 
                     Log.e("Tracking", "online mode OFF");
                 }
