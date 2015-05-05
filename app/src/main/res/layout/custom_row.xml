@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Medium TextMedium TextMedium TextMedium Text"
         android:id="@+id/driver_name_row"
         android:singleLine="true"
         android:layout_centerVertical="true"
