@@ -129,30 +129,48 @@ public class AddDriver extends ActionBarActivity {
 
     public void addNewDriver(){
 
-     if(!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString()))
-     {
-         dc.addNewDriver(addBoard.getText().toString(), addPhone.getText().toString(),
-                 addFIO.getText().toString(), addPass.getText().toString(),
-                 addCarNumber.getText().toString(), addCarModel.getText().toString(),
-                 new CallBack() {
-                     @Override
-                     public void process(String o) {
 
-                         Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован ", Toast.LENGTH_SHORT);
-                         toastSave.show();
-                     }
-                 },
-                 new CallBack() {
-                     @Override
-                     public void process(String o) {
-                         Toast toast3 = Toast.makeText(getApplicationContext(), "Ошибка ", Toast.LENGTH_SHORT);
-                         toast3.show();
-                     }
-                 });
-     }else{
-         Toast toastError = Toast.makeText(getApplicationContext(), "Водитель с таким бортом или телефоном или гос.номерами уже зарегистрирован ", Toast.LENGTH_LONG);
-         toastError.show();
+     if(checkEmptyFields(addBoard.getText().toString(), addPhone.getText().toString(),addFIO.getText().toString(), addPass.getText().toString(),addCarNumber.getText().toString(), addCarModel.getText().toString())) {
+         if (!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString())) {
+             dc.addNewDriver(addBoard.getText().toString(), addPhone.getText().toString(),
+                     addFIO.getText().toString(), addPass.getText().toString(),
+                     addCarNumber.getText().toString(), addCarModel.getText().toString(),
+                     new CallBack() {
+                         @Override
+                         public void process(String o) {
+
+                             Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован ", Toast.LENGTH_SHORT);
+                             toastSave.show();
+                         }
+                     },
+                     new CallBack() {
+                         @Override
+                         public void process(String o) {
+                             Toast toast3 = Toast.makeText(getApplicationContext(), "Ошибка ", Toast.LENGTH_SHORT);
+                             toast3.show();
+                         }
+                     });
+         } else {
+             Toast toastError = Toast.makeText(getApplicationContext(), "Водитель с таким бортом или телефоном или гос.номерами уже зарегистрирован ", Toast.LENGTH_LONG);
+             toastError.show();
+         }
+     } else {
+         Toast toastError1 = Toast.makeText(getApplicationContext(), "Заполните все поля ", Toast.LENGTH_LONG);
+         toastError1.show();
      }
+    }
+
+    public boolean checkEmptyFields(String board ,String phone,String name,String pass,String carNumber,String carModel){
+        boolean flag = true;
+
+        if(board.length() == 0) flag = false;
+        if(phone.length() == 0) flag = false;
+        if(name.length() == 0) flag = false;
+        if(pass.length() == 0) flag = false;
+        if(carModel.length() == 0) flag = false;
+        if(carNumber.length() == 0) flag = false;
+
+        return  flag;
     }
 
     public boolean checkBoard(String board){
