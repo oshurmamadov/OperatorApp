@@ -31,7 +31,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
-        android:text="1040"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
@@ -69,7 +68,6 @@
         android:id="@+id/editPhone"
         android:layout_alignBottom="@+id/addPhone"
         android:layout_alignLeft="@+id/editBoard"
-        android:text="0700456545"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
@@ -91,7 +89,6 @@
         android:id="@+id/editFIO"
         android:layout_alignBottom="@+id/addFIO"
         android:layout_alignLeft="@+id/editPhone"
-        android:text="Ramzan Kadirov"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
@@ -113,7 +110,6 @@
         android:id="@+id/editPass"
         android:layout_alignBottom="@+id/addPass"
         android:layout_alignLeft="@+id/editFIO"
-        android:text="chechnya"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
@@ -135,7 +131,6 @@
         android:id="@+id/editCarNumber"
         android:layout_alignBottom="@+id/addCarNumber"
         android:layout_alignLeft="@+id/editPass"
-        android:text="AX9595T"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
@@ -157,7 +152,6 @@
         android:id="@+id/editCarModel"
         android:layout_alignBottom="@+id/addCarModel"
         android:layout_alignLeft="@+id/editCarNumber"
-        android:text="Lada Kalina"
         android:textColor="@color/customWhiteAlpha"
         style="@style/EditTextCustomHolo"
         android:singleLine="true" />
