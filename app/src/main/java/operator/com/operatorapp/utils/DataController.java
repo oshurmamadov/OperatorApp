@@ -99,7 +99,8 @@ public class DataController {
                                         itemsList.add( new Record(
                                                 requestJSon.getString("cab_number"),
                                                 requestJSon.getDouble("latitude"),
-                                                requestJSon.getDouble("longitude")
+                                                requestJSon.getDouble("longitude"),
+                                                requestJSon.getString("created_at")
                                         ));
                                     }
                                 }
@@ -194,6 +195,7 @@ public class DataController {
                 }
         );
     }
+
 
     private void requestServer(final String url, final CallBack success, final CallBack failure) {
         AjaxCallback<String> callback = new AjaxCallback<String>() {

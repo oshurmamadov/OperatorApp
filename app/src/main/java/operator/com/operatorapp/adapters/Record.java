@@ -15,13 +15,15 @@ public class Record  {
     public String cabNumber;
     public double latitude;
     public double longitude;
+    public String date;
 
 
-    public Record(String cabNumber,double latitude,double longitude){
+    public Record(String cabNumber,double latitude,double longitude, String date){
 
         this.cabNumber = cabNumber;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.date = date;
 
     }
 
@@ -30,6 +32,8 @@ public class Record  {
     public Double getLatitude() { return  this.latitude; }
 
     public Double getLongitude() { return  this.longitude; }
+
+    public String getDate() { return  this.date; }
 
    /* @Override
     public int getViewType() {
