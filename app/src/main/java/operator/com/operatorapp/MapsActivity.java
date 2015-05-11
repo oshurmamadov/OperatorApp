@@ -361,8 +361,8 @@ public class MapsActivity extends ActionBarActivity {
         addItem.setVisible(false);
         refreshItem.setVisible(false);
 
-        editItem.setVisible(false);
-        deleteItem.setVisible(false);
+      //  editItem.setVisible(false);
+       // deleteItem.setVisible(false);
 
         invalidateOptionsMenu();
 
@@ -382,8 +382,8 @@ public class MapsActivity extends ActionBarActivity {
         addItem.setVisible(true);
         refreshItem.setVisible(true);
 
-        editItem.setVisible(true);
-        deleteItem.setVisible(true);
+       // editItem.setVisible(true);
+       // deleteItem.setVisible(true);
 
         invalidateOptionsMenu();
 
@@ -495,9 +495,18 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast dateToast23 = Toast.makeText(getApplicationContext(), "Long click", Toast.LENGTH_SHORT);
-                dateToast23.show();
+              //  Toast dateToast23 = Toast.makeText(getApplicationContext(), "Long click", Toast.LENGTH_SHORT);
+              //  dateToast23.show();
                 view.setBackgroundColor(getResources().getColor(R.color.loginPressed));
+
+                View edView = getLayoutInflater().inflate(R.layout.edit_delete, null, false);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                //builder.setIcon(R.drawable.info_32);
+                builder.setView(edView);
+                builder.create();
+                builder.show();
+
                 return false;
             }
         });
@@ -659,8 +668,8 @@ public class MapsActivity extends ActionBarActivity {
         addItem = menu.findItem(R.id.itemAddBoard);
         infoItem = menu.findItem(R.id.itemInfo);
         refreshItem = menu.findItem(R.id.itemRefresh);
-        editItem = menu.findItem(R.id.itemEditBoard);
-        deleteItem = menu.findItem(R.id.itemDeleteBoard);
+        //editItem = menu.findItem(R.id.itemEditBoard);
+        //deleteItem = menu.findItem(R.id.itemDeleteBoard);
 
         if(semaphor == 0)
         {
@@ -671,8 +680,8 @@ public class MapsActivity extends ActionBarActivity {
             addItem.setVisible(false);
             refreshItem.setVisible(false);
 
-            editItem.setVisible(false);
-            deleteItem.setVisible(false);
+           // editItem.setVisible(false);
+          //  deleteItem.setVisible(false);
             invalidateOptionsMenu();
         }
 

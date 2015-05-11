@@ -101,7 +101,8 @@ android:layout_height="match_parent" /> -->
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:drawSelectorOnTop="true"
-                android:divider="@color/mainColor" />
+                android:divider="@color/mainColor"
+                android:choiceMode="singleChoice" />
 
           <!--  <CheckBox
                 android:layout_width="wrap_content"
