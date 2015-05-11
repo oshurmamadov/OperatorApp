@@ -556,8 +556,31 @@ public class MapsActivity extends ActionBarActivity {
             public void onClick(View v) {
                 deleteL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
              //   editL.setBackgroundColor(getResources().getColor(R.color.white));
-                Intent intent = new Intent(MapsActivity.this,AddDriver.class);
-                startActivity(intent);
+
+                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(MapsActivity.this);
+                deleteDialog.setTitle("Удаление водителя")
+                        .setMessage("Вы хотите удалить водителя с бортовым номером "+dc.cabsList.get(position)+" ?")
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                               Log.e("Tracking","Driver was deleted");
+
+                                Toast deleteToast = Toast.makeText(getApplicationContext(), "Водитель удален", Toast.LENGTH_SHORT);
+                                deleteToast.show();
+
+                            }
+                        })
+                        .setNeutralButton("Отмена", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.e("Tracking","Delete canceled");
+
+
+
+                            }
+                        })
+                        .show();
+
 
             }
         });
