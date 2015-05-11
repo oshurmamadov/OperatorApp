@@ -26,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -100,6 +101,11 @@ public class MapsActivity extends ActionBarActivity {
     Timer timer = new Timer();
 
     public int semaphor = 0;
+
+    public LinearLayout editL;
+    public LinearLayout deleteL;
+
+    public AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -455,7 +461,7 @@ public class MapsActivity extends ActionBarActivity {
 
         final ListView listView = (ListView) findViewById(R.id.cab_list);
        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapsActivity.this,android.R.layout.simple_list_item_1 , dc.cabsList);
-        ListAdapter adapter = new ListAdapter(MapsActivity.this,dc.fullNameList,dc.cabsList);
+        final ListAdapter adapter = new ListAdapter(MapsActivity.this,dc.fullNameList,dc.cabsList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -501,11 +507,15 @@ public class MapsActivity extends ActionBarActivity {
 
                 View edView = getLayoutInflater().inflate(R.layout.edit_delete, null, false);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder = new AlertDialog.Builder(MapsActivity.this);
                 //builder.setIcon(R.drawable.info_32);
                 builder.setView(edView);
                 builder.create();
                 builder.show();
+
+                editDeleteHandle(edView);
+
+                adapter.notifyDataSetChanged();
 
                 return false;
             }
@@ -514,6 +524,33 @@ public class MapsActivity extends ActionBarActivity {
 
     }
 
+    public void editDeleteHandle(View view){
+        editL = (LinearLayout)view.findViewById(R.id.editLayout);
+        deleteL = (LinearLayout)view.findViewById(R.id.deleteLayout);
+
+        editL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
+               // deleteL.setBackgroundColor(getResources().getColor(R.color.white));
+                Intent intent = new Intent(MapsActivity.this,AddDriver.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+        deleteL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
+             //   editL.setBackgroundColor(getResources().getColor(R.color.white));
+                Intent intent = new Intent(MapsActivity.this,AddDriver.class);
+                startActivity(intent);
+
+            }
+        });
+    }
 
     public void getCoordsFromServer(){
 
