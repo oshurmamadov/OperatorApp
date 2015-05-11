@@ -50,6 +50,10 @@
             android:name=".AddDriver"
             android:label="@string/title_activity_add_driver" >
         </activity>
+        <activity
+            android:name=".EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
     </application>
 
 </manifest>

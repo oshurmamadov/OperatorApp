@@ -1,0 +1,271 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="operator.com.operatorapp.AddDriver"
+    android:background="@color/middleColor">
+
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Борт"
+        android:id="@+id/addBoard"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffffff"
+        android:elegantTextHeight="false" />
+
+    <EditText
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editBoard1"
+        android:layout_above="@+id/addPhone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:id="@+id/saveButton1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@color/mainColor"
+        android:textColor="#ffffff"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Телефон"
+        android:id="@+id/addPhone"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/addBoard"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editPhone1"
+        android:layout_alignBottom="@+id/addPhone"
+        android:layout_alignLeft="@+id/editBoard1"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ф.И.О"
+        android:id="@+id/addFIO"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/addPhone"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editFIO1"
+        android:layout_alignBottom="@+id/addFIO"
+        android:layout_alignLeft="@+id/editPhone1"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Пароль"
+        android:id="@+id/addPass"
+        android:layout_below="@+id/addFIO"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPass1"
+        android:layout_alignBottom="@+id/addPass"
+        android:layout_alignLeft="@+id/editFIO1"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Гос.номера"
+        android:id="@+id/addCarNumber"
+        android:layout_below="@+id/addPass"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editCarNumber1"
+        android:layout_alignBottom="@+id/addCarNumber"
+        android:layout_alignLeft="@+id/editPass1"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Модель"
+        android:id="@+id/addCarModel"
+        android:layout_below="@+id/addCarNumber"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editCarModel1"
+        android:layout_alignBottom="@+id/addCarModel"
+        android:layout_alignLeft="@+id/editCarNumber1"
+        android:textColor="@color/customWhiteAlpha"
+        style="@style/EditTextCustomHolo"
+        android:singleLine="true" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView7"
+        android:background="@drawable/cell2"
+        android:layout_alignTop="@+id/editPhone1"
+        android:layout_toLeftOf="@+id/editPhone1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView8"
+        android:background="@drawable/iboard"
+        android:layout_alignTop="@+id/editBoard1"
+        android:layout_toLeftOf="@+id/editBoard1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView9"
+        android:background="@drawable/idriver"
+        android:layout_alignTop="@+id/editFIO1"
+        android:layout_toLeftOf="@+id/editFIO1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="7dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView10"
+        android:background="@drawable/ipass"
+        android:layout_alignTop="@+id/editPass1"
+        android:layout_toLeftOf="@+id/editPass1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView11"
+        android:background="@drawable/inumber"
+        android:layout_alignTop="@+id/editCarNumber1"
+        android:layout_toLeftOf="@+id/editCarNumber1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/imageView12"
+        android:background="@drawable/icar"
+        android:layout_alignTop="@+id/editCarModel1"
+        android:layout_toLeftOf="@+id/editCarModel1"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="9dp"  />
+    <!-- *******************************************-->
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView13"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editPhone1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView14"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editBoard1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView15"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editFIO1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView16"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editPass1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView17"
+        android:background="@drawable/line"
+        android:layout_below="@+id/editCarNumber1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+
+</RelativeLayout>

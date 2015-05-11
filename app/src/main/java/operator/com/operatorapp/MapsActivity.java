@@ -518,6 +518,7 @@ public class MapsActivity extends ActionBarActivity {
                 adapter.notifyDataSetChanged();
 
                 return false;
+
             }
         });
 
