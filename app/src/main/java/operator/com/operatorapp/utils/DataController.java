@@ -44,9 +44,11 @@ public class DataController {
     public ArrayList<String> carModelList;
     public ArrayList<String> carNumberList;
     public ArrayList<String> phoneNumberList;
+    public ArrayList<String> passList;
 
 
     public int selectedCar = 0;
+
 
     public Boolean onlineMode =false ;
 
@@ -62,6 +64,7 @@ public class DataController {
         carModelList = new ArrayList<String>();
         carNumberList = new ArrayList<String>();
         phoneNumberList  = new ArrayList<String>();
+        passList  = new ArrayList<String>();
     }
 
     public static DataController getInstance(Context context){
@@ -144,6 +147,7 @@ public class DataController {
                                     carModelList.add(cabsJSon.getString("car_model"));
                                     carNumberList.add(cabsJSon.getString("car_number"));
                                     phoneNumberList.add(cabsJSon.getString("phone_number"));
+                                    passList.add(cabsJSon.getString("password"));
                                 }
 
                             } catch (JSONException e) {

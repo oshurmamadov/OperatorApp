@@ -340,6 +340,7 @@ public class MapsActivity extends ActionBarActivity {
         dc.carModelList.clear();
         dc.carNumberList.clear();
         dc.phoneNumberList.clear();
+        dc.passList.clear();
     }
     @Override
     protected void onStop() {
@@ -513,7 +514,8 @@ public class MapsActivity extends ActionBarActivity {
                 builder.create();
                 builder.show();
 
-                editDeleteHandle(edView);
+
+                editDeleteHandle(edView,position);
 
                 adapter.notifyDataSetChanged();
 
@@ -525,7 +527,7 @@ public class MapsActivity extends ActionBarActivity {
 
     }
 
-    public void editDeleteHandle(View view){
+    public void editDeleteHandle(View view, final int position){
         editL = (LinearLayout)view.findViewById(R.id.editLayout);
         deleteL = (LinearLayout)view.findViewById(R.id.deleteLayout);
 
@@ -534,7 +536,15 @@ public class MapsActivity extends ActionBarActivity {
             public void onClick(View v) {
                 editL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
                // deleteL.setBackgroundColor(getResources().getColor(R.color.white));
-                Intent intent = new Intent(MapsActivity.this,AddDriver.class);
+                Intent intent = new Intent(MapsActivity.this,EditActivity.class);
+
+                intent.putExtra("board",dc.cabsList.get(position));
+                intent.putExtra("phone",dc.phoneNumberList.get(position));
+                intent.putExtra("FIO",dc.fullNameList.get(position));
+                intent.putExtra("password",dc.passList.get(position));
+                intent.putExtra("number",dc.carNumberList.get(position));
+                intent.putExtra("model",dc.carModelList.get(position));
+
                 startActivity(intent);
 
 
@@ -768,6 +778,7 @@ public class MapsActivity extends ActionBarActivity {
                 dc.carModelList.clear();
                 dc.carNumberList.clear();
                 dc.phoneNumberList.clear();
+                dc.passList.clear();
 
                 getCabsList();
                 return true;
