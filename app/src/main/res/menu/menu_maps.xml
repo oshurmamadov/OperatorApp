@@ -19,6 +19,14 @@
                 android:title="Добавить борт"
                 android:icon="@drawable/add_user"  />
 
+            <item android:id="@+id/itemEditBoard"
+                android:title="Редактировать борт"
+                android:icon="@drawable/edit"    />
+
+            <item android:id="@+id/itemDeleteBoard"
+                android:title="Удалить борт"
+                android:icon="@drawable/delete"    />
+
             <item android:id="@+id/itemInfo"
                 android:title="Информация"
                 android:icon="@drawable/information"    />

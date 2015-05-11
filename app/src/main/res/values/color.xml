@@ -2,7 +2,7 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="customBlueLight">#6FD9FF</color>
-    <color name="loginPressed">#D666DF</color>
+    <color name="loginPressed">#ffd97adf</color>
     <color name="loginColor">#7B0794</color>
     <color name="mainColor">#7B0794</color>
     <color name="middleColor">#d234dd</color>

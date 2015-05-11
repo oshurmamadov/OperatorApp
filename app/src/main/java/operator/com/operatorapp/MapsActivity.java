@@ -72,6 +72,8 @@ public class MapsActivity extends ActionBarActivity {
     MenuItem infoItem;
     MenuItem addItem;
     MenuItem refreshItem;
+    MenuItem editItem;
+    MenuItem deleteItem;
 
     Switch switcher;
 
@@ -358,6 +360,10 @@ public class MapsActivity extends ActionBarActivity {
         infoItem.setVisible(true);
         addItem.setVisible(false);
         refreshItem.setVisible(false);
+
+        editItem.setVisible(false);
+        deleteItem.setVisible(false);
+
         invalidateOptionsMenu();
 
         Log.e("Tracking", "Flip to oLeft");
@@ -375,6 +381,10 @@ public class MapsActivity extends ActionBarActivity {
         infoItem.setVisible(false);
         addItem.setVisible(true);
         refreshItem.setVisible(true);
+
+        editItem.setVisible(true);
+        deleteItem.setVisible(true);
+
         invalidateOptionsMenu();
 
         Log.e("Tracking", "Flip to Right");
@@ -479,6 +489,19 @@ public class MapsActivity extends ActionBarActivity {
             }
 
         });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast dateToast23 = Toast.makeText(getApplicationContext(), "Long click", Toast.LENGTH_SHORT);
+                dateToast23.show();
+                view.setBackgroundColor(getResources().getColor(R.color.loginPressed));
+                return false;
+            }
+        });
+
 
     }
 
@@ -636,6 +659,8 @@ public class MapsActivity extends ActionBarActivity {
         addItem = menu.findItem(R.id.itemAddBoard);
         infoItem = menu.findItem(R.id.itemInfo);
         refreshItem = menu.findItem(R.id.itemRefresh);
+        editItem = menu.findItem(R.id.itemEditBoard);
+        deleteItem = menu.findItem(R.id.itemDeleteBoard);
 
         if(semaphor == 0)
         {
@@ -645,6 +670,9 @@ public class MapsActivity extends ActionBarActivity {
             infoItem.setVisible(true);
             addItem.setVisible(false);
             refreshItem.setVisible(false);
+
+            editItem.setVisible(false);
+            deleteItem.setVisible(false);
             invalidateOptionsMenu();
         }
 
