@@ -533,7 +533,7 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 editL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
-               // deleteL.setBackgroundColor(getResources().getColor(R.color.white));
+                deleteL.setBackgroundColor(getResources().getColor(R.color.white));
                 Intent intent = new Intent(MapsActivity.this,EditActivity.class);
 
                 intent.putExtra("board",dc.cabsList.get(position));
@@ -555,7 +555,7 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 deleteL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
-             //   editL.setBackgroundColor(getResources().getColor(R.color.white));
+                editL.setBackgroundColor(getResources().getColor(R.color.white));
 
                 AlertDialog.Builder deleteDialog = new AlertDialog.Builder(MapsActivity.this);
                 deleteDialog.setTitle("Удаление водителя")

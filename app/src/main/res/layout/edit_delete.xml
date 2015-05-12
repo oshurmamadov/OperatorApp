@@ -28,7 +28,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Редактировать борт"
         android:id="@+id/textView" />
+
+
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        android:id="@+id/imageView20" />
 
     <LinearLayout
         android:id="@+id/deleteLayout"
@@ -43,6 +51,7 @@
             android:id="@+id/imageView19"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
+
 
         <TextView
             android:layout_width="wrap_content"
