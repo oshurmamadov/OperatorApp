@@ -52,6 +52,7 @@ public class DataController {
 
 
     public Boolean onlineMode =false ;
+    public boolean enterByLogin = false , enterByMain = false;
 
     private  DataController(Context context){
 

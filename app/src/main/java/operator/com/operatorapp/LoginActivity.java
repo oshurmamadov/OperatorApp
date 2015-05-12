@@ -73,10 +73,10 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                mProgressDialog = ProgressDialog.show(LoginActivity.this, "Подождите", "Загружается карта...", true);
+                mProgressDialog = ProgressDialog.show(LoginActivity.this, "Подождите", "Выполняется вход...", true);
                 saveData();
 
-                dc.login(loginField.getText().toString(),
+                dc.login(SaveSharedPrefrances.getPassword(LoginActivity.this),//loginField.getText().toString(),
                         new CallBack() {
                             @Override
                             public void process(String o) {
@@ -116,6 +116,8 @@ public class LoginActivity extends ActionBarActivity {
                 finish();
             } else
             {
+                SaveSharedPrefrances.setPassword(this, "");
+
                 Toast toast = Toast.makeText(getApplicationContext(), "Неправильный пароль", Toast.LENGTH_SHORT);
                 toast.show();
             }

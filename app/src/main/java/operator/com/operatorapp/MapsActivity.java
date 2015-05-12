@@ -55,6 +55,7 @@ import operator.com.operatorapp.utils.CallBack;
 import operator.com.operatorapp.utils.DataController;
 import operator.com.operatorapp.utils.DataPickerFragment;
 import operator.com.operatorapp.utils.OnSwipeTouchListener;
+import operator.com.operatorapp.utils.SaveSharedPrefrances;
 
 public class MapsActivity extends ActionBarActivity {
 
@@ -542,7 +543,7 @@ public class MapsActivity extends ActionBarActivity {
                 intent.putExtra("password",dc.passList.get(position));
                 intent.putExtra("number",dc.carNumberList.get(position));
                 intent.putExtra("model",dc.carModelList.get(position));
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
 
 
                 startActivity(intent);
@@ -816,6 +817,17 @@ public class MapsActivity extends ActionBarActivity {
 
                 getCabsList();
                 return true;
+            case R.id.itemLogout:
+                Log.e("MENU","logout");
+
+                SaveSharedPrefrances.clearData(MapsActivity.this);
+
+                dc.enterByMain = false;
+                dc.enterByLogin = true;
+
+                Intent intent1 = new Intent(MapsActivity.this , LoginActivity.class);
+                startActivity(intent1);
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
