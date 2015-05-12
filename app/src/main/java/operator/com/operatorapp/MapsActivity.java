@@ -150,6 +150,8 @@ public class MapsActivity extends ActionBarActivity {
                 switcher.setChecked(false);
 
                 dc.onlineMode = false;
+
+                switcher.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
             }
         });
 
@@ -238,6 +240,8 @@ public class MapsActivity extends ActionBarActivity {
                     data.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
                     dc.onlineMode = true;
 
+                    switcher.setTextColor(getResources().getColor(R.color.white));
+
                     Log.e("Tracking", "online mode ON");
                 }
                 else{
@@ -248,6 +252,8 @@ public class MapsActivity extends ActionBarActivity {
 
                     dc.onlineMode = false;
                     data.setTextColor(getResources().getColor(R.color.white));
+
+                    switcher.setTextColor(getResources().getColor(R.color.customWhiteAlpha));
 
                     Log.e("Tracking", "online mode OFF");
                 }
@@ -581,7 +587,7 @@ public class MapsActivity extends ActionBarActivity {
                                         new CallBack() {
                                             @Override
                                             public void process(String o) {
-                                                
+
                                                 Toast deleteToast = Toast.makeText(getApplicationContext(), "Водитель удален", Toast.LENGTH_SHORT);
                                                 deleteToast.show();
                                             }
