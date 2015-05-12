@@ -201,6 +201,38 @@ public class DataController {
     }
 
 
+    public void deleteBoard(String board ,final CallBack success, final CallBack failure){
+        String url = String.format("http://serverdp.herokuapp.com/del_driver?cab_number=%s", board );
+        requestServer(url,
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        if(!o.equals("")) {
+                            //Log.e("Jush", "Callback 4");
+                            try {
+
+                                saveJSon = new JSONObject(o.toString());
+
+                                saveStatus  = saveJSon.getString("status");
+
+                                Log.e("Tracking","saved request status :"+saveStatus);
+
+                            } catch (JSONException e) {
+                                Log.e("Tracking", "Catched JSONException. result was: " + o);
+                            }
+                        }
+                        success.process(o);
+                    }
+                },
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        failure.process(null);
+                    }
+                }
+        );
+    }
+
     private void requestServer(final String url, final CallBack success, final CallBack failure) {
         AjaxCallback<String> callback = new AjaxCallback<String>() {
             @Override

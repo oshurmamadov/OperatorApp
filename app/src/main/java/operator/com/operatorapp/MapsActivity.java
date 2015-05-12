@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.androidquery.AQuery;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -107,12 +108,15 @@ public class MapsActivity extends ActionBarActivity {
 
     public AlertDialog.Builder builder;
 
+    AQuery aq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
         dc = DataController.getInstance(this);
+        aq = new AQuery(this);
 
         getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.title_bar);
@@ -333,14 +337,8 @@ public class MapsActivity extends ActionBarActivity {
     protected void onDestroy(){
         super.onDestroy();
         Log.e("Tracking","onDestroy");
-        dc.cabsList.clear();
-        dc.datelist.clear();
-        dc.itemsList.clear();
-        dc.fullNameList.clear();
-        dc.carModelList.clear();
-        dc.carNumberList.clear();
-        dc.phoneNumberList.clear();
-        dc.passList.clear();
+
+        clearLists();
     }
     @Override
     protected void onStop() {
@@ -565,8 +563,28 @@ public class MapsActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                Log.e("Tracking","Driver was deleted");
 
+                                dc.deleteBoard(dc.cabsList.get(position),
+                                        new CallBack() {
+                                            @Override
+                                            public void process(String o) {
+                                                addCoords();
+                                            }
+                                        },
+                                        new CallBack() {
+                                            @Override
+                                            public void process(String o) {
+                                                Toast toastD = Toast.makeText(getApplicationContext(), "Не удалось удалить данного водителя ", Toast.LENGTH_SHORT);
+                                                toastD.show();
+                                            }
+                                        });
+
+
                                 Toast deleteToast = Toast.makeText(getApplicationContext(), "Водитель удален", Toast.LENGTH_SHORT);
                                 deleteToast.show();
+//update list
+                                //clearLists();
+                                //getCabsList();
+
 
                             }
                         })
@@ -574,8 +592,6 @@ public class MapsActivity extends ActionBarActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.e("Tracking","Delete canceled");
-
-
 
                             }
                         })
@@ -794,14 +810,7 @@ public class MapsActivity extends ActionBarActivity {
             case R.id.itemRefresh:
                 Log.e("MENU","refresh");
 
-                dc.cabsList.clear();
-                dc.datelist.clear();
-                dc.itemsList.clear();
-                dc.fullNameList.clear();
-                dc.carModelList.clear();
-                dc.carNumberList.clear();
-                dc.phoneNumberList.clear();
-                dc.passList.clear();
+                clearLists();
 
                 getCabsList();
                 return true;
@@ -809,6 +818,19 @@ public class MapsActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void clearLists(){
+
+        dc.cabsList.clear();
+        dc.datelist.clear();
+        dc.itemsList.clear();
+        dc.fullNameList.clear();
+        dc.carModelList.clear();
+        dc.carNumberList.clear();
+        dc.phoneNumberList.clear();
+        dc.passList.clear();
+
     }
 
 
