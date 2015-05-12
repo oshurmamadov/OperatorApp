@@ -1,9 +1,11 @@
 package operator.com.operatorapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import operator.com.operatorapp.utils.CallBack;
 import operator.com.operatorapp.utils.DataController;
+import operator.com.operatorapp.utils.SaveSharedPrefrances;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -30,6 +35,8 @@ public class LoginActivity extends ActionBarActivity {
     TextView cabNumberView;
     TextView fullNameView;
 
+    ProgressDialog mProgressDialog ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +52,6 @@ public class LoginActivity extends ActionBarActivity {
 
         loginField = (EditText)findViewById(R.id.editTextLogin);
         loginField.setTypeface(fontBold);
-
-
 
 
         infoButton = (ImageButton) findViewById(R.id.info);
@@ -67,11 +72,54 @@ public class LoginActivity extends ActionBarActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-                startActivity(intent);
+
+                mProgressDialog = ProgressDialog.show(LoginActivity.this, "Подождите", "Загружается карта...", true);
+                saveData();
+
+                dc.login(loginField.getText().toString(),
+                        new CallBack() {
+                            @Override
+                            public void process(String o) {
+                                mProgressDialog.dismiss();
+                                beginTracking();
+                            }
+                        },
+                        new CallBack() {
+                            @Override
+                            public void process(String o) {
+
+                                Toast toastError = Toast.makeText(getApplicationContext(), "Ошибка:" + dc.loginStatus, Toast.LENGTH_SHORT);
+                                toastError.show();
+                            }
+                        });
             }
         });
 
+    }
+
+    public void saveData()
+    {
+        SaveSharedPrefrances.setPassword(this, loginField.getText().toString());
+    }
+
+    public void beginTracking(){
+
+        if(dc.loginStatus != null)
+        {
+            Log.e("Tracking", dc.loginStatus);
+
+            String flag = "success";
+            if (dc.loginStatus.equals(flag))
+            {
+                Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                LoginActivity.this.startActivityForResult(intent, 1);
+                finish();
+            } else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Неправильный пароль", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
 

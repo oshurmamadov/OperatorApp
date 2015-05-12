@@ -269,7 +269,7 @@ public class DataController {
     }
 
     public void login(String password ,final CallBack success, final CallBack failure){
-        String url = String.format("http://serverdp.herokuapp.com/del_driver?cab_number=%s", password );
+        String url = String.format("http://serverdp.herokuapp.com/login_operator?password=%s", password );
         requestServer(url,
                 new CallBack() {
                     @Override
