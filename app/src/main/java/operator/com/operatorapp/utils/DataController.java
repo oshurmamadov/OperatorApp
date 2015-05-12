@@ -35,6 +35,7 @@ public class DataController {
     public JSONObject saveJSon;
 
     public String saveStatus;
+    public String loginStatus;
 
     public ArrayList<String> cabsList;
     public ArrayList<String> datelist;
@@ -248,6 +249,38 @@ public class DataController {
                                 saveJSon = new JSONObject(o.toString());
 
                                 saveStatus  = saveJSon.getString("status");
+
+                                Log.e("Tracking","saved request status :"+saveStatus);
+
+                            } catch (JSONException e) {
+                                Log.e("Tracking", "Catched JSONException. result was: " + o);
+                            }
+                        }
+                        success.process(o);
+                    }
+                },
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        failure.process(null);
+                    }
+                }
+        );
+    }
+
+    public void login(String password ,final CallBack success, final CallBack failure){
+        String url = String.format("http://serverdp.herokuapp.com/del_driver?cab_number=%s", password );
+        requestServer(url,
+                new CallBack() {
+                    @Override
+                    public void process(String o) {
+                        if(!o.equals("")) {
+                            //Log.e("Jush", "Callback 4");
+                            try {
+
+                                saveJSon = new JSONObject(o.toString());
+
+                                loginStatus  = saveJSon.getString("status");
 
                                 Log.e("Tracking","saved request status :"+saveStatus);
 

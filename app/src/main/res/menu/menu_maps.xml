@@ -27,6 +27,7 @@
                 android:title="Удалить борт"
                 android:icon="@drawable/delete"    />-->
 
+
             <item android:id="@+id/itemInfo"
                 android:title="Информация"
                 android:icon="@drawable/information"    />
@@ -34,6 +35,11 @@
             <item android:id="@+id/itemRefresh"
                 android:title="Обновить список"
                 android:icon="@drawable/refresh"    />
+
+            <item android:id="@+id/itemLogout"
+                android:title="Выйти"
+                android:icon="@drawable/logout"    />
+
 
         </menu>
     </item>>
