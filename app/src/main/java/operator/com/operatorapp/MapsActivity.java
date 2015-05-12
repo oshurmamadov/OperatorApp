@@ -542,6 +542,8 @@ public class MapsActivity extends ActionBarActivity {
                 intent.putExtra("password",dc.passList.get(position));
                 intent.putExtra("number",dc.carNumberList.get(position));
                 intent.putExtra("model",dc.carModelList.get(position));
+                intent.putExtra("position",position);
+
 
                 startActivity(intent);
 

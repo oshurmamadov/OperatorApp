@@ -40,6 +40,8 @@ public class EditActivity extends ActionBarActivity {
     EditText addCarNumber;
     EditText addCarModel;
 
+    int position = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,8 @@ public class EditActivity extends ActionBarActivity {
         addPass.setText(intent.getStringExtra("password"));
         addCarNumber.setText(intent.getStringExtra("number"));
         addCarModel.setText(intent.getStringExtra("model"));
+
+        position = intent.getIntExtra("position",position);
 
 
         Typeface font = Typeface.createFromAsset(EditActivity.this.getAssets(), "fonts/roboto_bold.ttf");
@@ -146,14 +150,14 @@ public class EditActivity extends ActionBarActivity {
 
         if(checkEmptyFields(addBoard.getText().toString(), addPhone.getText().toString(),addFIO.getText().toString(), addPass.getText().toString(),addCarNumber.getText().toString(), addCarModel.getText().toString())) {
             if (!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString())) {
-                dc.addNewDriver(addBoard.getText().toString(), addPhone.getText().toString(),
+                dc.editDriver(addBoard.getText().toString(), addPhone.getText().toString(),
                         addFIO.getText().toString(), addPass.getText().toString(),
                         addCarNumber.getText().toString(), addCarModel.getText().toString(),
                         new CallBack() {
                             @Override
                             public void process(String o) {
 
-                                Toast toastSave = Toast.makeText(getApplicationContext(), "Новый водитель зарегистрирован ", Toast.LENGTH_SHORT);
+                                Toast toastSave = Toast.makeText(getApplicationContext(), "Данные изменены", Toast.LENGTH_SHORT);
                                 toastSave.show();
                             }
                         },
@@ -165,7 +169,7 @@ public class EditActivity extends ActionBarActivity {
                             }
                         });
             } else {
-                Toast toastError = Toast.makeText(getApplicationContext(), "Водитель с таким бортом или телефоном или гос.номерами уже зарегистрирован ", Toast.LENGTH_LONG);
+                Toast toastError = Toast.makeText(getApplicationContext(), "Водитель с таким бортом или телефоном или гос.номерами уже существует ", Toast.LENGTH_LONG);
                 toastError.show();
             }
         } else {
@@ -191,7 +195,7 @@ public class EditActivity extends ActionBarActivity {
 
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(board.equals(dc.cabsList.get(i)) ) flag = true;
+            if(board.equals(dc.cabsList.get(i)) && position != i) flag = true;
         }
 
         return  flag;
@@ -200,7 +204,7 @@ public class EditActivity extends ActionBarActivity {
     public boolean checkPhone(String phone ){
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(phone.equals(dc.phoneNumberList.get(i)) ) flag = true;
+            if(phone.equals(dc.phoneNumberList.get(i)) && position != i ) flag = true;
         }
 
         return  flag;
@@ -211,7 +215,7 @@ public class EditActivity extends ActionBarActivity {
 
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(carNumber.equals(dc.carNumberList.get(i)) ) flag = true;
+            if(carNumber.equals(dc.carNumberList.get(i)) && position != i ) flag = true;
         }
 
         return  flag;
