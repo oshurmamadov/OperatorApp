@@ -75,12 +75,8 @@ public class MapsActivity extends ActionBarActivity {
     MenuItem infoItem;
     MenuItem addItem;
     MenuItem refreshItem;
-    MenuItem editItem;
-    MenuItem deleteItem;
 
     Switch switcher;
-
-    CheckBox checkbox;
 
     ProgressDialog dialog;
 
@@ -107,7 +103,8 @@ public class MapsActivity extends ActionBarActivity {
     public LinearLayout editL;
     public LinearLayout deleteL;
 
-    public AlertDialog.Builder builder;
+   // public AlertDialog.Builder builder;
+    public Dialog dialogBuilder;
 
     AQuery aq;
 
@@ -507,16 +504,28 @@ public class MapsActivity extends ActionBarActivity {
 
                 View edView = getLayoutInflater().inflate(R.layout.edit_delete, null, false);
 
-                builder = new AlertDialog.Builder(MapsActivity.this);
+                dialogBuilder = new Dialog(MapsActivity.this);
                 //builder.setIcon(R.drawable.info_32);
-                builder.setView(edView);
-                builder.create();
-                builder.show();
+                dialogBuilder.setContentView(edView);
+                dialogBuilder.setTitle("Выберите действие");
+               // builder.setCancelable(false);
+               // builder.create();
+               /* builder.setPositiveButton("Отмена",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });*/
+                dialogBuilder.show();
 
 
-                editDeleteHandle(edView,position);
+              //  final AlertDialog d = new AlertDialog.Builder(context)
+
+
+                editDeleteHandle(edView, position);
 
                 adapter.notifyDataSetChanged();
+
 
                 return false;
 
@@ -534,7 +543,8 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 editL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
-                deleteL.setBackgroundColor(getResources().getColor(R.color.white));
+                deleteL.setBackgroundColor(getResources().getColor(R.color.customWhiteAlpha));
+
                 Intent intent = new Intent(MapsActivity.this,EditActivity.class);
 
                 intent.putExtra("board",dc.cabsList.get(position));
@@ -545,9 +555,8 @@ public class MapsActivity extends ActionBarActivity {
                 intent.putExtra("model",dc.carModelList.get(position));
                 intent.putExtra("position", position);
 
-
                 startActivity(intent);
-
+                dialogBuilder.dismiss();
 
             }
         });
@@ -556,7 +565,9 @@ public class MapsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 deleteL.setBackgroundColor(getResources().getColor(R.color.loginPressed));
-                editL.setBackgroundColor(getResources().getColor(R.color.white));
+                editL.setBackgroundColor(getResources().getColor(R.color.customWhiteAlpha));
+
+                dialogBuilder.dismiss();
 
                 AlertDialog.Builder deleteDialog = new AlertDialog.Builder(MapsActivity.this);
                 deleteDialog.setTitle("Удаление водителя")
@@ -570,7 +581,9 @@ public class MapsActivity extends ActionBarActivity {
                                         new CallBack() {
                                             @Override
                                             public void process(String o) {
-                                                addCoords();
+                                                
+                                                Toast deleteToast = Toast.makeText(getApplicationContext(), "Водитель удален", Toast.LENGTH_SHORT);
+                                                deleteToast.show();
                                             }
                                         },
                                         new CallBack() {
@@ -581,13 +594,9 @@ public class MapsActivity extends ActionBarActivity {
                                             }
                                         });
 
-
-                                Toast deleteToast = Toast.makeText(getApplicationContext(), "Водитель удален", Toast.LENGTH_SHORT);
-                                deleteToast.show();
 //update list
                                 //clearLists();
                                 //getCabsList();
-
 
                             }
                         })
