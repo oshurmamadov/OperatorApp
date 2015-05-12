@@ -11,7 +11,7 @@
 
 
     <EditText
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:id="@+id/editTextLogin"
         android:layout_centerVertical="true"
@@ -39,6 +39,6 @@
         android:background="@color/mainColor"
         android:layout_below="@+id/editTextLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ffffff" />
 </RelativeLayout>

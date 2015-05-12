@@ -15,7 +15,7 @@ public class SplashActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        final Intent intent = new Intent(SplashActivity.this ,MapsActivity.class );
+        final Intent intent = new Intent(SplashActivity.this ,LoginActivity.class );
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
