@@ -88,7 +88,10 @@ public class LoginActivity extends ActionBarActivity {
                             @Override
                             public void process(String o) {
 
-                                Toast toastError = Toast.makeText(getApplicationContext(), "Ошибка:" + dc.loginStatus, Toast.LENGTH_SHORT);
+                                SaveSharedPrefrances.setPassword(LoginActivity.this, "");
+                                mProgressDialog.dismiss();
+
+                                Toast toastError = Toast.makeText(getApplicationContext(), "Ошибка подключения к сети", Toast.LENGTH_SHORT);
                                 toastError.show();
                             }
                         });
