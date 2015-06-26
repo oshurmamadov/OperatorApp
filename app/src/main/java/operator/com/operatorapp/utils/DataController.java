@@ -49,6 +49,7 @@ public class DataController {
 
 
     public int selectedCar = 0;
+    public int selectedItem = -1;
 
 
     public Boolean onlineMode =false ;
@@ -93,8 +94,6 @@ public class DataController {
                                 for(int i=0; i < object.length(); i++) {
 
                                     requestJSon = new JSONObject( object.get(i).toString());
-
-
 
                                     String date = requestJSon.getString("created_at").split("T")[0];
 

@@ -131,7 +131,7 @@ public class AddDriver extends ActionBarActivity {
 
 
      if(checkEmptyFields(addBoard.getText().toString(), addPhone.getText().toString(),addFIO.getText().toString(), addPass.getText().toString(),addCarNumber.getText().toString(), addCarModel.getText().toString())) {
-         if (!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString())) {
+         if (!checkBoard(addBoard.getText().toString()) & !checkPhone(addPhone.getText().toString()) & !checkCarNumber(addCarNumber.getText().toString())) {
              dc.addNewDriver(addBoard.getText().toString(), addPhone.getText().toString(),
                      addFIO.getText().toString(), addPass.getText().toString(),
                      addCarNumber.getText().toString(), addCarModel.getText().toString(),

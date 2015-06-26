@@ -149,7 +149,7 @@ public class EditActivity extends ActionBarActivity {
 
 
         if(checkEmptyFields(addBoard.getText().toString(), addPhone.getText().toString(),addFIO.getText().toString(), addPass.getText().toString(),addCarNumber.getText().toString(), addCarModel.getText().toString())) {
-            if (!checkBoard(addBoard.getText().toString()) && !checkPhone(addPhone.getText().toString()) && !checkCarNumber(addCarNumber.getText().toString())) {
+            if (!checkBoard(addBoard.getText().toString()) & !checkPhone(addPhone.getText().toString()) & !checkCarNumber(addCarNumber.getText().toString())) {
                 dc.editDriver(addBoard.getText().toString(), addPhone.getText().toString(),
                         addFIO.getText().toString(), addPass.getText().toString(),
                         addCarNumber.getText().toString(), addCarModel.getText().toString(),
@@ -195,7 +195,9 @@ public class EditActivity extends ActionBarActivity {
 
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(board.equals(dc.cabsList.get(i)) && position != i) flag = true;
+            if(board.equals(dc.cabsList.get(i))) {
+                if( dc.selectedItem != i) flag = true;
+            }
         }
 
         return  flag;
@@ -204,7 +206,10 @@ public class EditActivity extends ActionBarActivity {
     public boolean checkPhone(String phone ){
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(phone.equals(dc.phoneNumberList.get(i)) && position != i ) flag = true;
+            if(phone.equals(dc.phoneNumberList.get(i)))
+            {
+                if(dc.selectedItem != i ) flag = true;
+            }
         }
 
         return  flag;
@@ -215,7 +220,10 @@ public class EditActivity extends ActionBarActivity {
 
         boolean flag = false;
         for(int i = 0; i < dc.cabsList.size(); i++){
-            if(carNumber.equals(dc.carNumberList.get(i)) && position != i ) flag = true;
+            if(carNumber.equals(dc.carNumberList.get(i)))
+            {
+                if(dc.selectedItem != i ) flag = true;
+            }
         }
 
         return  flag;
@@ -281,6 +289,10 @@ public class EditActivity extends ActionBarActivity {
         }
     };
 
-
+    public void onDestroy()
+    {
+        super.onDestroy();
+        dc.selectedItem = -1;
+    }
 
 }

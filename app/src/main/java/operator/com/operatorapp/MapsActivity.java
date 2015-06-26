@@ -561,6 +561,8 @@ public class MapsActivity extends ActionBarActivity {
                 intent.putExtra("model",dc.carModelList.get(position));
                 intent.putExtra("position", position);
 
+                dc.selectedItem = position;
+
                 startActivity(intent);
                 dialogBuilder.dismiss();
 
